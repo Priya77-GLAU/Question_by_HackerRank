@@ -129,7 +129,7 @@ def count_substring(string, sub_string):
     return count
 #############################################################################################################
 #TODO 4:
-s='qA2'
+# s='qA2'
 #
 # m=list(map(str.isalnum ,[i for i in s]))
 # print(reduce(lambda x,y: x or y,m))
