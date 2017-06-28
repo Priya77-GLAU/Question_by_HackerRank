@@ -95,29 +95,28 @@ def print_formatted(number):
 
 #############################################################################################################
 #TODO 6: Alphabet Rangoli
-def str_rangoli(string, new_size):
+def str_rangoli(string):
     if len(string) == 1:
         return string
     else:
-        return string[0] + '-' + str_rangoli(string[1:],new_size-1)+ '-' + string[0]
+        return string[0] + '-' + str_rangoli(string[1:])+ '-' + string[0]
 
 def print_rangoli(size):
     # your code goes here
-    alph_str = string.ascii_lowercase
-    num_char = size+1
-    width = size*2-1
-    str  = str_rangoli(alph_str,size)
-    # for i,ch in enumerate(alph_str[num_char::-1]):
-    #     s =
-    #     print(s.center(width,'-'))
+    alph_str = string.ascii_lowercase[size-1::-1]
+    # print(alph_str)
+    width = (size*2-1)*2-1
+    for i in range(len(alph_str)):
+        print(str_rangoli(alph_str[:i+1]).center(width,'-'))
 
-    print(str.center(width,'-'))
-
+    alph_str = alph_str[:-1]
+    for i in range(len(alph_str[1:]),-1,-1):
+        print(str_rangoli(alph_str[:i+1]).center(width,'-'))
 
 
 #############################################################################################################
 def main():
-    print_formatted(3)
+    print_rangoli(5)
 
 #############################################################################################################
 if __name__ == '__main__':
