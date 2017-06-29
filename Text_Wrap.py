@@ -101,10 +101,10 @@ def str_rangoli(string):
     else:
         return string[0] + '-' + str_rangoli(string[1:])+ '-' + string[0]
 
+
 def print_rangoli(size):
     # your code goes here
     alph_str = string.ascii_lowercase[size-1::-1]
-    # print(alph_str)
     width = (size*2-1)*2-1
     for i in range(len(alph_str)):
         print(str_rangoli(alph_str[:i+1]).center(width,'-'))
@@ -114,9 +114,23 @@ def print_rangoli(size):
         print(str_rangoli(alph_str[:i+1]).center(width,'-'))
 
 
+#TODO 6.1: Alphabet Rangoli - other way
+def print_rangoli_new(size):
+    alph_str = string.ascii_lowercase[size - 1::-1]
+    width = (size * 2 - 1) * 2 - 1
+    k = 1
+    i = 1
+    while i > 0:
+        print(str_rangoli(alph_str[:i]).center(width, '-'))
+        i += k
+        if i == (size):
+            k = -k
+
+
 #############################################################################################################
 def main():
-    print_rangoli(5)
+    # print_rangoli(5)
+    print_rangoli_new(5)
 
 #############################################################################################################
 if __name__ == '__main__':
