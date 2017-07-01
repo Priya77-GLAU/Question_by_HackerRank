@@ -204,6 +204,37 @@ def char_is_vowels(char_str):
         return False
 
 
+# функция для тестирования - проверяю список, что все входящие в него строки начинаются с соласной буквы
+def check_consonant_list(list_arg):
+    for item_list in list_arg:
+        if char_is_vowels(item_list[0]):
+            return False
+    return True
+
+# функция для тестирования - проверяю список, что все входящие в него строки начинаются с гласной буквы
+def check_vowel_list(list_arg):
+    for item_list in list_arg:
+        if char_is_consonants(item_list[0]):
+            return False
+    return True
+
+
+def count_consonant(str_arg):
+    count = 0
+    for ch in str_arg:
+        if char_is_consonants(ch):
+            count += 1
+    return count
+
+
+def count_vowel(str_arg):
+    count = 0
+    for ch in str_arg:
+        if char_is_vowels(ch):
+            count += 1
+    return count
+
+
 def scoring(arg_str, arg_sub_str):
     score_int = 0
     index = arg_str.find(arg_sub_str)
@@ -221,6 +252,7 @@ def find_chars(arg_str, arg_sub_str):
             substrings_list.append(ss)
     return substrings_list
 
+
 def unique_list(arg_list):
     result_list = []
     for i in arg_list:
@@ -230,8 +262,6 @@ def unique_list(arg_list):
 
 
 
-
-#############################################################################################################
 def find_consonant_substrings(str_arg):
     substrings_list = []
     index_start = 0
@@ -266,26 +296,28 @@ def find_vowel_substrings(str_arg):
 
 # print Name of winner, his score
 def minion_game(string):
-    # your code goes here
     kevin_vowels_score = 0
     stuart_consonants_score = 0
+
     stuart_list = set(find_consonant_substrings(string))
     for str_from_list in stuart_list:
         stuart_consonants_score += scoring(string, str_from_list)
 
-    # kevin_list = set(find_vowel_substrings(string))
     kevin_l = find_vowel_substrings(string)
-    # kevin_list = kevin_l
-    # kevin_list = list(set(kevin_l))
-    kevin_list = unique_list(kevin_l)
+    kevin_list = list(set(kevin_l))
+    # kevin_list = unique_list(kevin_l)
 
-    # kevin_collect = set()
+    if not check_consonant_list(stuart_list):
+        print('wrong consonant list')
+    if not check_vowel_list(kevin_list):
+        print('wrong vovels list')
+
+    print(stuart_list)
+    print(kevin_list)
     # new_list = [e for e in kevin_l if e not in kevin_collect and not kevin_collect.add(e)]
-
     # print('kevin_l list len =', len(kevin_l), 'kevin_l set len =', len(kevin_list))
     # print(kevin_list)
     for str_from_list in kevin_list:
-        # print('str_from_list =', str_from_list)
         kevin_vowels_score += scoring(string, str_from_list)
 
     if stuart_consonants_score > kevin_vowels_score:
@@ -303,6 +335,7 @@ def main():
     # print_rangoli_new(5)
     # test_string = 'hello woRld from my 100s hearts'
     # test_string = 'q w e r t y u i o p a s d f g h j  k l z x c v b n m Q W E R T Y U I O P A S D F G H J  K L Z X C V B N M'
+    # целевой результат "Kevin 82011"
     test_input_str = 'EQQAEAOQYEQEYYOEEQQYAOEEAQEEOOEYAYOEYAYAEOQYAAYAOYYOQAAYEQAOOAQEAEYAOEEQYYEEAOAOAEQOEYOAOEYOOAAOQ' \
                      'EOYEAYYOEAOAQEYYEOQEEEYAOOAYOOAQAEOYOYAEOYQEEEOOQOEAOAAQAOQEYOQEAEAEOOOOQOYQOEQQYEEEYEEOQYYYOEQOQ' \
                      'EYAYQQOYEEOAEQOEEEEAAEEYAAQAAQAAYOEAQAQYEYYYEAOYOQEQOOEQOYAYAEEYQAYYQYYAEAYOEYEAOQQQOYYYOYYOYYQYA' \
@@ -310,7 +343,11 @@ def main():
                      'QAYOEYOEYYEEOEEOAYAEEQEQOAAAYAEYQQAYOYQQOAEAOQOOYAEEOAEQAQEEQYOOEEAEEAAOYQYQAOEQYOYEQEAAOYAQAQYEAQEQEEOQQQYEYOQ'
     test_output_str = 'Kevin 82011'
     games_str = 'BANANA'
-    aa = minion_game(test_input_str)
+    aa = minion_game(games_str)
+    print('chars =', len(test_input_str))
+    print('consonants =', count_consonant(test_input_str))
+    print('vowels =', count_vowel(test_input_str))
+
 
 #############################################################################################################
 if __name__ == '__main__':
