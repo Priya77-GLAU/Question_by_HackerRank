@@ -264,7 +264,9 @@ def unique_list(arg_list):
     return result_list
 
 
-
+# func find_consonant_substrings return list of strings, for each string
+# included in the original string str_arg
+# begin consonant char
 def find_consonant_substrings(str_arg):
     substrings_list = []
     index_start = 0
@@ -281,6 +283,9 @@ def find_consonant_substrings(str_arg):
     return substrings_list
 
 
+# func find_vowel_substrings return list of strings, for each string
+# included in the original string str_arg
+# begin vowel char
 def find_vowel_substrings(str_arg):
     substrings_list = []
     index_start = 0
@@ -305,7 +310,7 @@ def minion_game(string):
     stuart_list = set(find_consonant_substrings(string))
 
     kevin_l = find_vowel_substrings(string)
-    kevin_list = list(set(kevin_l))
+    kevin_list = set(kevin_l)
     # kevin_list = unique_list(kevin_l)
 
     if not check_consonant_list(stuart_list):
