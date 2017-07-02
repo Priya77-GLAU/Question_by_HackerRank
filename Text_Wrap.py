@@ -81,6 +81,7 @@ If the game is a draw, print Draw.
 
 import textwrap
 import string
+import sys
 
 #############################################################################################################
 #TODO 1:
@@ -308,9 +309,9 @@ def minion_game(string):
     # kevin_list = unique_list(kevin_l)
 
     if not check_consonant_list(stuart_list):
-        print('wrong consonant list')
+        print('wrong consonant list', file=sys.stderr) # or sys.stderr.write('wrong consonant list\n')
     if not check_vowel_list(kevin_list):
-        print('wrong vovels list')
+        print('wrong vovels list', file=sys.stderr)
 
     # print(stuart_list)
     # print(kevin_list)
