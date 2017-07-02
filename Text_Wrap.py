@@ -247,7 +247,7 @@ def scoring(arg_str, arg_sub_str):
         index = arg_str.find(arg_sub_str, index+1)
     return score_int
 
-# not use
+# func find_chars not use
 def find_chars(arg_str, arg_sub_str):
     substrings_list = []
     for ss in arg_sub_str:
@@ -340,18 +340,20 @@ def main():
     # print_rangoli_new(5)
     # test_string = 'hello woRld from my 100s hearts'
     # test_string = 'q w e r t y u i o p a s d f g h j  k l z x c v b n m Q W E R T Y U I O P A S D F G H J  K L Z X C V B N M'
-    # целевой результат "Kevin 82011"
+    # Target result "Kevin 82011"
     test_input_str = 'EQQAEAOQYEQEYYOEEQQYAOEEAQEEOOEYAYOEYAYAEOQYAAYAOYYOQAAYEQAOOAQEAEYAOEEQYYEEAOAOAEQOEYOAOEYOOAAOQ' \
                      'EOYEAYYOEAOAQEYYEOQEEEYAOOAYOOAQAEOYOYAEOYQEEEOOQOEAOAAQAOQEYOQEAEAEOOOOQOYQOEQQYEEEYEEOQYYYOEQOQ' \
                      'EYAYQQOYEEOAEQOEEEEAAEEYAAQAAQAAYOEAQAQYEYYYEAOYOQEQOOEQOYAYAEEYQAYYQYYAEAYOEYEAOQQQOYYYOYYOYYQYA' \
                      'OEOAOAOYEAAOEOEAEYQAEAQOEOYEEAQOAOQEYOEQOAQQEEYOOAQQOOEYQAQOEEOOOAAQOQEYYOEOOQOOAEYEOOAEQYQOAEYYYA' \
                      'QAYOEYOEYYEEOEEOAYAEEQEQOAAAYAEYQQAYOYQQOAEAOQOOYAEEOAEQAQEEQYOOEEAEEAAOYQYQAOEQYOYEQEAAOYAQAQYEAQEQEEOQQQYEYOQ'
-    test_output_str = 'Kevin 82011'
+    test_output_str = 'Kevin 82011' # for test_input_str program must print result 'Kevin 82011'
     games_str = 'BANANA'
     aa = minion_game(test_input_str)
     print('chars =', len(test_input_str))
     print('consonants =', count_consonant(test_input_str))
     print('vowels =', count_vowel(test_input_str))
+
+    exit(0)
 
 
 #############################################################################################################
