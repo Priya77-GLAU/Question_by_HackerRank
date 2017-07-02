@@ -204,7 +204,8 @@ def char_is_vowels(char_str):
         return False
 
 
-# функция для тестирования - проверяю список, что все входящие в него строки начинаются с соласной буквы
+# функция для тестирования - проверяю список, что все входящие в него строки начинаются с согласной буквы
+# this function test list of string - first char if each string is consonant
 def check_consonant_list(list_arg):
     for item_list in list_arg:
         if char_is_vowels(item_list[0]):
@@ -212,6 +213,7 @@ def check_consonant_list(list_arg):
     return True
 
 # функция для тестирования - проверяю список, что все входящие в него строки начинаются с гласной буквы
+# this function test list of string - first char if each string is vowel
 def check_vowel_list(list_arg):
     for item_list in list_arg:
         if char_is_consonants(item_list[0]):
@@ -219,6 +221,7 @@ def check_vowel_list(list_arg):
     return True
 
 
+# this function calculate consonant chars in the str_arg (string)
 def count_consonant(str_arg):
     count = 0
     for ch in str_arg:
@@ -226,7 +229,7 @@ def count_consonant(str_arg):
             count += 1
     return count
 
-
+# this function calculate vowel chars in the str_arg (string)
 def count_vowel(str_arg):
     count = 0
     for ch in str_arg:
@@ -234,17 +237,16 @@ def count_vowel(str_arg):
             count += 1
     return count
 
-
+# calculate point
 def scoring(arg_str, arg_sub_str):
     score_int = 0
     index = arg_str.find(arg_sub_str)
     while index != -1:
         score_int += 1
-        # print('arg_sub_str   =', arg_sub_str, arg_str[index:], score_int)
         index = arg_str.find(arg_sub_str, index+1)
     return score_int
 
-
+# not use
 def find_chars(arg_str, arg_sub_str):
     substrings_list = []
     for ss in arg_sub_str:
@@ -300,8 +302,6 @@ def minion_game(string):
     stuart_consonants_score = 0
 
     stuart_list = set(find_consonant_substrings(string))
-    for str_from_list in stuart_list:
-        stuart_consonants_score += scoring(string, str_from_list)
 
     kevin_l = find_vowel_substrings(string)
     kevin_list = list(set(kevin_l))
@@ -312,11 +312,15 @@ def minion_game(string):
     if not check_vowel_list(kevin_list):
         print('wrong vovels list')
 
-    print(stuart_list)
-    print(kevin_list)
+    # print(stuart_list)
+    # print(kevin_list)
     # new_list = [e for e in kevin_l if e not in kevin_collect and not kevin_collect.add(e)]
     # print('kevin_l list len =', len(kevin_l), 'kevin_l set len =', len(kevin_list))
     # print(kevin_list)
+
+    for str_from_list in stuart_list:
+        stuart_consonants_score += scoring(string, str_from_list)
+
     for str_from_list in kevin_list:
         kevin_vowels_score += scoring(string, str_from_list)
 
@@ -343,7 +347,7 @@ def main():
                      'QAYOEYOEYYEEOEEOAYAEEQEQOAAAYAEYQQAYOYQQOAEAOQOOYAEEOAEQAQEEQYOOEEAEEAAOYQYQAOEQYOYEQEAAOYAQAQYEAQEQEEOQQQYEYOQ'
     test_output_str = 'Kevin 82011'
     games_str = 'BANANA'
-    aa = minion_game(games_str)
+    aa = minion_game(test_input_str)
     print('chars =', len(test_input_str))
     print('consonants =', count_consonant(test_input_str))
     print('vowels =', count_vowel(test_input_str))
