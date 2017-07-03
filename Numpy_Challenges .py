@@ -14,13 +14,23 @@ import sys
 
 
 #TODO 1:
-array_size = tuple([int(item) for item in input().split()])
-array_list = []
-for i in range(array_size[0]):
-    array_list.append(tuple([int(item) for item in input().split()]))
+def get_array_from_input():
+    array_size = tuple([int(item) for item in input().split()])
+    array_list = []
+    for i in range(array_size[0]):
+        array_list.append(tuple([int(item) for item in input().split()]))
 
-my_array = numpy.array(array_list)
+    new_array = numpy.array(array_list)
 
+    return new_array
+
+# array_size = tuple([int(item) for item in input().split()])
+# array_list = []
+# for i in range(array_size[0]):
+#     array_list.append(tuple([int(item) for item in input().split()]))
+
+# my_array = numpy.array(array_list)
+my_array = get_array_from_input()
 step_1 = numpy.sum(my_array, axis = 0)
 print (step_1)         #Output : [4 6]
 print(numpy.prod(step_1))
