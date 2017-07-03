@@ -32,6 +32,15 @@ Second, print the var.
 Third, print the std.
 
 TODO 4:
+
+You are given two arrays A and B. Both have dimensions of NxN.
+Your task is to compute their matrix product.
+Input Format:
+The first line contains the integer N.
+The next N lines contains  space separated integers of array A.
+The following N lines contains N space separated integers of array B.
+
+Output Format: Print the matrix multiplication of A and B.
 '''
 
 import numpy
@@ -80,10 +89,31 @@ def mean_var_std():
     print(numpy.std(my_array))
     return 0
 
+
+#TODO 4: "Dot and Cross"
+def dot_cross():
+    array_size = int(input())
+    array_list = []
+    for i in range(array_size):
+        array_list.append(tuple([int(item) for item in input().split()]))
+    array_A = numpy.array(array_list)
+    array_list.clear()
+    for i in range(array_size):
+        array_list.append(tuple([int(item) for item in input().split()]))
+    array_B = numpy.array(array_list)
+
+    print(numpy.dot(array_A, array_B))
+
+    return 0
+
+
+
+
 def main():
     # sum_and_prod()
     # min_and_max()
-    mean_var_std()
+    # mean_var_std()
+    dot_cross()
 
 
 
