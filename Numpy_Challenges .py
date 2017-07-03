@@ -15,6 +15,8 @@ The first line of input contains the space separated values of N and M.
 The next N lines contains M space separated integers.
 Output Format: Compute the min along axis 1 and then print the max of that result.
 
+TODO 3:
+
 '''
 
 import numpy
@@ -55,10 +57,18 @@ def min_and_max():
     return 0
 
 
+#TODO 3: "Mean, Var, and Std"
+def mean_var_std():
+    my_array = get_array_from_input()
+    print(numpy.mean(my_array, axis=1))
+    print(numpy.var(my_array, axis=0))
+    print(numpy.std(my_array))
+    return 0
 
 def main():
     # sum_and_prod()
-    min_and_max()
+    # min_and_max()
+    mean_var_std()
 
 
 
