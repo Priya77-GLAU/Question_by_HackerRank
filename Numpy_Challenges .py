@@ -32,15 +32,23 @@ Second, print the var.
 Third, print the std.
 
 TODO 4:
-
 You are given two arrays A and B. Both have dimensions of NxN.
 Your task is to compute their matrix product.
 Input Format:
 The first line contains the integer N.
 The next N lines contains  space separated integers of array A.
 The following N lines contains N space separated integers of array B.
-
 Output Format: Print the matrix multiplication of A and B.
+
+TODO 5:
+You are given two arrays: A and B.
+Your task is to compute their inner and outer product.
+Input Format
+The first line contains the space separated elements of array .
+The second line contains the space separated elements of array .
+Output Format:
+First, print the inner product.
+Second, print the outer product.
 '''
 
 import numpy
@@ -107,13 +115,20 @@ def dot_cross():
     return 0
 
 
+#TODO 5: "Inner_Outer"
+def inner_outer():
+    array_A = numpy.array([int(item) for item in input().split()])
+    array_B = numpy.array([int(item) for item in input().split()])
+    print(numpy.inner(array_A, array_B))
+    print(numpy.outer(array_A, array_B))
 
 
 def main():
     # sum_and_prod()
     # min_and_max()
     # mean_var_std()
-    dot_cross()
+    # dot_cross()
+    inner_outer()
 
 
 
