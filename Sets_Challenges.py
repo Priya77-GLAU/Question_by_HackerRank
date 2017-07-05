@@ -9,7 +9,14 @@ Constraints: 0  < N <= 100
 Output Format:
 Output the average height value on a single line.
 
-TODO 2:
+TODO 2: Symmetric Difference
+Given 2 sets of integers, M and N, print their symmetric difference in ascending order. The term symmetric difference indicates those values that exist in either  or  but do not exist in both.
+Input Format
+The first line of input contains an integer, M.
+The second line contains M space-separated integers.
+The third line contains an integer, N.
+The fourth line contains N space-separated integers.
+Output Format: Output the symmetric difference integers in ascending order, one per line.
 
 '''
 
@@ -38,7 +45,21 @@ def average(array):
     return sum(array) / len(array)
 
 
-def main():
+#TODO 2: "Symmetric Difference"
+def symmetric_difference():\
+    len_of_list_1 = int(input())
+    m_set = set([int(i) for i in input().split(' ')])
+    len_of_list_2 = int(input())
+    n_set = set([int(i) for i in input().split(' ')])
+    answer_1 = m_set.difference (n_set)
+    answer_2 = n_set.difference (m_set)
+    answer_list = list(answer_1.symmetric_difference(answer_2))
+    answer_list.sort()
+    for i in answer_list:
+        print(i)
+
+
+# def main():
     # sum_and_prod()
     # min_and_max()
     # mean_var_std()
@@ -48,5 +69,5 @@ def main():
 
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
