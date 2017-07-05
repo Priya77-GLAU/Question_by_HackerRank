@@ -18,6 +18,19 @@ The third line contains an integer, N.
 The fourth line contains N space-separated integers.
 Output Format: Output the symmetric difference integers in ascending order, one per line.
 
+TODO 3: No Idea
+There is an array of n integers. There are also  disjoint sets, A and B, each containing m integers. You like all the integers in set A and dislike all the integers in set B. Your initial happiness is 0. For each i integer in the array, if i is included A, you add 1 to your happiness. If i  is included B, you add -1(minus) to your happiness. Otherwise, your happiness does not change. Output your final happiness at the end.
+Note: Since A and B are sets, they have no repeated elements. However, the array might contain duplicate elements.
+Constraints
+1 <= n <= 10**5
+1 <= m <= 10**5
+1 <= any integer in the input <= 10**9
+Input Format
+The first line contains integers n and m separated by a space.
+The second line contains n integers, the elements of the array.
+The third and fourth lines contain m integers, A and B, respectively.
+Output Format: Output a single integer, your total happiness.
+
 '''
 
 import numpy
@@ -46,7 +59,7 @@ def average(array):
 
 
 #TODO 2: "Symmetric Difference"
-def symmetric_difference():\
+def symmetric_difference():
     len_of_list_1 = int(input())
     m_set = set([int(i) for i in input().split(' ')])
     len_of_list_2 = int(input())
@@ -58,6 +71,23 @@ def symmetric_difference():\
     for i in answer_list:
         print(i)
 
+
+#TODO 3: "No Idea"
+array_size = tuple([int(item) for item in input().split()])
+array_list = []
+array_list = [int(i) for i in input().split(' ')]
+print(array_list)
+A_set = set([int(i) for i in input().split(' ')])
+B_set = set([int(i) for i in input().split(' ')])
+print(A_set)
+print(B_set)
+my_happiness = 0
+for i in array_list:
+    if i in A_set:
+        my_happiness += 1
+    elif i in B_set:
+        my_happiness -= 1
+print(my_happiness)
 
 # def main():
     # sum_and_prod()
