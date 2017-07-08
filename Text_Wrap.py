@@ -256,14 +256,6 @@ def find_chars(arg_str, arg_sub_str):
     return substrings_list
 
 
-def unique_list(arg_list):
-    result_list = []
-    for i in arg_list:
-        if i not in result_list:
-            result_list.append(i)
-    return result_list
-
-
 # func find_consonant_substrings return list of strings, for each string
 # included in the original string str_arg
 # begin consonant char
@@ -334,10 +326,6 @@ def minion_game(string):
 
 #############################################################################################################
 def main():
-    # print_rangoli(5)
-    # print_rangoli_new(5)
-    # test_string = 'hello woRld from my 100s hearts'
-    # test_string = 'q w e r t y u i o p a s d f g h j  k l z x c v b n m Q W E R T Y U I O P A S D F G H J  K L Z X C V B N M'
     # Target result "Kevin 82011"
     test_input_str = 'EQQAEAOQYEQEYYOEEQQYAOEEAQEEOOEYAYOEYAYAEOQYAAYAOYYOQAAYEQAOOAQEAEYAOEEQYYEEAOAOAEQOEYOAOEYOOAAOQ' \
                      'EOYEAYYOEAOAQEYYEOQEEEYAOOAYOOAQAEOYOYAEOYQEEEOOQOEAOAAQAOQEYOQEAEAEOOOOQOYQOEQQYEEEYEEOQYYYOEQOQ' \
@@ -345,8 +333,8 @@ def main():
                      'OEOAOAOYEAAOEOEAEYQAEAQOEOYEEAQOAOQEYOEQOAQQEEYOOAQQOOEYQAQOEEOOOAAQOQEYYOEOOQOOAEYEOOAEQYQOAEYYYA' \
                      'QAYOEYOEYYEEOEEOAYAEEQEQOAAAYAEYQQAYOYQQOAEAOQOOYAEEOAEQAQEEQYOOEEAEEAAOYQYQAOEQYOYEQEAAOYAQAQYEAQEQEEOQQQYEYOQ'
     test_output_str = 'Kevin 82011' # for test_input_str program must print result 'Kevin 82011'
-    games_str = 'BANANA'
-    aa = minion_game(test_input_str)
+    games_str = 'BANAASA'
+    aa = minion_game(games_str)
     # print('chars =', len(test_input_str))
     # print('consonants =', count_consonant(test_input_str))
     # print('vowels =', count_vowel(test_input_str))
