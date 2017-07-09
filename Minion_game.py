@@ -89,15 +89,12 @@ def find_vowel_substrings(str_arg):
 def score_consonant_substrings(str_arg):
     score = 0
     consonants_str = 'BCDFGHJKLMNPQRSTVWXZY'
-    substrings_list = []
     index_start = 0
-    index_end = None
     str_len = len(str_arg)
     while index_start < str_len:
         if str_arg[index_start] in consonants_str:
             for index_end in range(len(str_arg[index_start:])):
                 score += 1
-                # substrings_list.append(str_arg[index_start:index_start+index_end+1])
             index_start += 1
         else:
             index_start += 1
@@ -108,15 +105,12 @@ def score_consonant_substrings(str_arg):
 def score_vowel_substrings(str_arg):
     score = 0
     vowels_str = 'AEIOU'
-    substrings_list = []
     index_start = 0
-    index_end = None
     str_len = len(str_arg)
     while index_start < str_len:
         if str_arg[index_start] in vowels_str:
             for index_end in range(len(str_arg[index_start:])):
                 score += 1
-                # substrings_list.append(str_arg[index_start:index_start+index_end+1])
             index_start += 1
         else:
             index_start += 1
@@ -139,8 +133,6 @@ def score_flat_string(len_of_string):
     else:
         score = int((len_of_string*len_of_string/2)+(len_of_string+1)/2)
 
-    # for i in range(1,len_of_string+1):
-    #     score += i
     return score
 
 
@@ -158,14 +150,7 @@ def minion_game(string):
         elif string[0] in vowels_str:
             kevin_vowels_score = score_flat_string(len(string))
     else:
-        # stuart_list = set(find_consonant_substrings(string))
-        # for str_from_list in stuart_list:
-        #     stuart_consonants_score += scoring(string, str_from_list)
         stuart_consonants_score = score_consonant_substrings(string)
-
-        # kevin_list = set(find_vowel_substrings(string))
-        # for str_from_list in kevin_list:
-        #     kevin_vowels_score += scoring(string, str_from_list)
         kevin_vowels_score = score_vowel_substrings(string)
 
     if stuart_consonants_score > kevin_vowels_score:
