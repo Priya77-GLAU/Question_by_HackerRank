@@ -55,7 +55,33 @@ The next N lines contains either pop, remove and/or discard commands followed by
 
 Constraints 0 < n < 20,  0 < N < 20
 Output Format: Print the sum of the elements of set S on a single line.
+
+TODO 6:
+"Set .union() Operation"
+The students of District College have subscriptions to English and French newspapers. Some students have subscribed only
+to English, some have subscribed to only French and some have subscribed to both newspapers.
+You are given two sets of student roll numbers. One set has subscribed to the English newspaper, and the other set is
+subscribed to the French newspaper. The same student could be in both sets. Your task is to find the total number of
+students who have subscribed to at least one newspaper.
+Input Format
+The first line contains an integer, N, the number of students who have subscribed to the English newspaper.
+The second line contains N space separated roll numbers of those students.
+The third line contains B, the number of students who have subscribed to the French newspaper.
+The fourth line contains B space separated roll numbers of those students.
+Constraints: 0 < Total number of students in college < 1000
+Output Format: Output the total number of students who have at least one subscription.
+
+TODO 7:Set .intersection() Operation
+
+TODO 8: "Set .difference() Operation"
+
+TODO 9: "Set .symmetric_difference() Operation"
+
+TODO 10: "Set Mutations"
+
+
 '''
+
 
 import numpy
 import sys
@@ -141,29 +167,98 @@ def discard_remove_pop():
     n = int(input())
     s = set(map(int, input().split()))
 
-num_of_command = int(input())
-for i in range(num_of_command):
-    new_command, digit = get_command()
-    if new_command == 'pop':
-        s.pop()
-    elif new_command == 'remove':
-        s.remove(digit)
-    elif new_command == 'discard':
-        # print('command = {0}({1})'.format(new_command, digit))
-        s.discard(digit)
+    num_of_command = int(input())
+    for i in range(num_of_command):
+        new_command, digit = get_command()
+        if new_command == 'pop':
+            s.pop()
+        elif new_command == 'remove':
+            s.remove(digit)
+        elif new_command == 'discard':
+            # print('command = {0}({1})'.format(new_command, digit))
+            s.discard(digit)
 
-summary_set = 0
-while s:
-    summary_set += s.pop()
+    summary_set = 0
+    while s:
+        summary_set += s.pop()
 
-print(summary_set)
+    print(summary_set)
+    return 0
 
-#TODO 6:
+
+#TODO 6: "Set .union() Operation"
+def union_operation():
+    n = int(input())
+    english_subscribe = set(map(int, input().split()))
+    b = int(input())
+    french_subscribe = set(map(int, input().split()))
+    print(len(english_subscribe.union(french_subscribe)))
+
+
+#TODO 7: "Set .intersection() Operation"
+def intersection_operation():
+    n = int(input())
+    english_subscribe = set(map(int, input().split()))
+    b = int(input())
+    french_subscribe = set(map(int, input().split()))
+    print(len(english_subscribe.intersection(french_subscribe)))
+    return 0
+
+
+#TODO 8: "Set .difference() Operation"
+def difference_operation():
+    n = int(input())
+    english_subscribe = set(map(int, input().split()))
+    b = int(input())
+    french_subscribe = set(map(int, input().split()))
+    print(len(english_subscribe.difference(french_subscribe)))
+
+
+#TODO 9: "Set .symmetric_difference() Operation"
+def symmetric_difference_operation():
+    n = int(input())
+    english_subscribe = set(map(int, input().split()))
+    b = int(input())
+    french_subscribe = set(map(int, input().split()))
+    print(len(english_subscribe.symmetric_difference(french_subscribe)))
+
+
+#TODO 10: "Set Mutations"
+def set_mutations():
+    size_a = int(input())
+    a_set = set(map(int, input().lstrip().rstrip().split()))
+    numbers_of_command = int(input())
+    for i in range(numbers_of_command):
+        new_command, digit = get_command()
+        other_set = set(map(int, input().lstrip().rstrip().split()))
+        # print('{} {} for {}'.format(new_command, digit, other_set))
+        if new_command == 'intersection_update':
+            a_set = a_set.intersection(other_set)
+            # print(a_set)
+
+        elif new_command == 'update':
+            a_set.update(other_set)
+            # print(a_set)
+
+        elif new_command == 'symmetric_difference_update':
+            a_set = a_set.symmetric_difference(other_set)
+            # print(a_set)
+
+        elif new_command == 'difference_update':
+            a_set = a_set.difference(other_set)
+            # print(a_set)
+
+    print(sum(a_set))
 
 
 def main():
     # set_add()
-    discard_remove_pop()
+    # discard_remove_pop()
+    # union_operation()
+    # intersection_operation()
+    # difference_operation()
+    # symmetric_difference_operation()
+    set_mutations()
 
 
 
