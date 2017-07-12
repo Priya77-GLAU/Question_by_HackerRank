@@ -90,7 +90,6 @@ Mr. Anant has an unordered list of randomly arranged room entries. The list cons
 Mr. Anant needs you to help him find the Captain's room number.
 The total number of tourists or the total number of groups of families is not known to you.
 You only know the value of K and the room number list.
-
 Input Format
 The first line consists of an integer, K, the size of each group.
 The second line contains the unordered elements of the room number list.
@@ -100,6 +99,42 @@ Explanation
 The list of room numbers contains 31 elements. Since K is 5, there must be 6 groups of families. In the given list, all of the numbers repeat 5 times except for room number 8.
 Hence,  is the Captain's room number.
 
+TODO 12: "Check Subset"
+You are given two sets, A and B.
+Your job is to find whether set A is a subset of set B.
+If set A is subset of set B, print True.
+If set A is not a subset of set B, print False.
+Input Format:
+The first line will contain the number of test cases, T.
+The first line of each test case contains the number of elements in set A.
+The second line of each test case contains the space separated elements of set B.
+The third line of each test case contains the number of elements in set B.
+The fourth line of each test case contains the space separated elements of set B.
+Constraints
+0 < T < 21
+0 < number of elements in each set < 1001
+Output Format: Output True or False for each test case on separate lines.
+
+TODO 13: "Check Strict Superset"
+You are given a set A and N other sets.
+Your job is to find whether set A is a strict superset of each of the N sets.
+Print True, if A is a strict superset of each of the N sets. Otherwise, print False.
+A strict superset has at least one element that does not exist in its subset.
+Example
+Set([1,3,4]) is a strict superset of set([]).
+Set([1,3,4]) is not a strict superset of set([1,3,4]).
+Set([1,3,4]) is not a strict superset of set([1,3,5]).
+Input Format
+The first line contains the space separated elements of set A.
+The second line contains integer N, the number of other sets.
+The next N lines contains the space separated elements of the other sets.
+Constraints
+0 < len(set A) < 501
+0 < N < 21
+0 < len(other sets) < 101
+Output Format: Print True if set A is a strict superset of all other N sets. Otherwise, print False.
+Set A is the strict superset of the set but not of the set because  is not in set .
+Hence, the output is False.
 '''
 
 
@@ -281,6 +316,37 @@ def captains_room():
     return 0
 
 
+#TODO 12: "Check Subset"
+def check_subset():
+    num_of_tests = int(input())
+    for i in range(num_of_tests):
+        size_a = int(input())
+        set_a = set(list(input().lstrip().rstrip().split()))
+        size_b = int(input())
+        set_b = set(list(input().lstrip().rstrip().split()))
+        print(set_a == set_a.intersection(set_b))
+    return 0
+
+
+#TODO 13: "Check Strict Superset"
+def is_strict_superset(super_set, sub_set):
+    if len(super_set) > len(sub_set) and super_set.issuperset(sub_set):
+        return True
+    else:
+        return False
+
+
+def check_strict_superset():
+    super_set_a = set(list(input().lstrip().rstrip().split()))
+    num_of_sets = int(input())
+    result = True
+    for i in range(num_of_sets):
+        set_b = set(list(input().lstrip().rstrip().split()))
+        result = result and is_strict_superset(super_set_a, set_b)
+    print(result)
+    return 0
+
+
 def main():
     # set_add()
     # discard_remove_pop()
@@ -289,7 +355,10 @@ def main():
     # difference_operation()
     # symmetric_difference_operation()
     # set_mutations()
-    captains_room()
+    # captains_room()
+    # check_subset()
+    check_strict_superset()
+
 
 
 
