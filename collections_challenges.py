@@ -20,10 +20,26 @@ Output Format: Print the amount of money earned by Raghu .
 TODO 2:
 "DefaultDict Tutorial"
 
+TODO 3: "collections_namedtuple"
+Dr. John Wesley has a spreadsheet containing a list of student's IDs, marks, class and name.
+Your task is to help Dr. Wesley calculate the average marks of the students.
+Note:
+1. Columns can be in any order. IDs, marks, class and name can be written in any order in the spreadsheet.
+2. Column names are ID, MARKS, CLASS and NAME. (The spelling and case type of these names won't change.)
+Input Format:
+The first line contains an integer N, the total number of students.
+The second line contains the names of the columns in any order.
+The next N lines contains the MARKS, ID, NAME and CLASS , under their respective column names.
+Constraints: 0 < N <= 100
+Output Format:
+Print the average marks of the list corrected to 2 decimal places.
+
+
 '''
 
 from collections import Counter
 from collections import defaultdict
+from collections import namedtuple
 
 
 # TODO 1: "collections.Counter()"
@@ -78,9 +94,38 @@ def default_dict_tutorial():
             #     print(result)
 
 
+# TODO 3: "collections_namedtuple"
+def collections_namedtuple():
+    student_list = []
+    num_of_students = int(input())
+    header_list = [x for x in input().split(' ') if x]
+    Student = namedtuple('Student', 'MARKS ID NAME CLASS')
+    # d = defaultdict(list)
+    for _ in range(num_of_students):
+        input_list = [x for x in input().split(' ') if x]
+        for n, v in zip(header_list, input_list):
+            if n == 'MARKS':
+                st_marks = v
+            elif n == 'ID':
+                st_id = v
+            elif n == 'NAME':
+                st_name = v
+            elif n == 'CLASS':
+                st_clas = v
+        one_student = Student(ID=st_id, MARKS=int(st_marks), NAME=st_name, CLASS=st_clas)
+        student_list.append(one_student)
+    count = 0
+    sum_of_marks = 0
+    for stud in student_list:
+        count += 1
+        sum_of_marks += stud.MARKS
+    print('{:.2f}'.format(sum_of_marks / len(student_list)))
+    return 0
+
 def main():
     # collections_counter()
-    default_dict_tutorial()
+    # default_dict_tutorial()
+    collections_namedtuple()
 
 
 if __name__ == '__main__':
