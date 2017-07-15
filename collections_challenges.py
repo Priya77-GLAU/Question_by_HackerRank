@@ -34,12 +34,20 @@ Constraints: 0 < N <= 100
 Output Format:
 Print the average marks of the list corrected to 2 decimal places.
 
+# TODO 4: "Collections.OrderedDict()"
+
+# TODO 5: "Word Order"
+
+
+
 
 '''
 
 from collections import Counter
 from collections import defaultdict
 from collections import namedtuple
+from collections import OrderedDict
+import re
 
 
 # TODO 1: "collections.Counter()"
@@ -122,10 +130,53 @@ def collections_namedtuple():
     print('{:.2f}'.format(sum_of_marks / len(student_list)))
     return 0
 
+
+# TODO 4: "Collections.OrderedDict()"
+def get_name_and_price():
+    *names, price = [x for x in input().split(' ') if x]
+    return ' '.join(names), int(price)
+
+
+def collections_ordered_dict():
+    ordered_dictionary = OrderedDict()
+    num_of_line = int(input())
+
+    # name = ' '.join([x for x in input().split(' ') if x])
+    # print(name)
+    # ordered_dictionary[name] = 1
+
+    for _ in range(num_of_line):
+        item_name, net_price = get_name_and_price()
+
+        ordered_dictionary[item_name] = ordered_dictionary.get(item_name, 0) + net_price
+
+    for item_order in ordered_dictionary:
+        print('{} {}'.format(item_order, ordered_dictionary[item_order]))
+
+    return 0
+
+
+# TODO 5: "Word Order"
+def word_ordered_dict():
+    list_of_words = OrderedDict()
+    num_of_words = int(input())
+    for _ in range(num_of_words):
+        word = ''.join(input().lstrip().rstrip().split(' '))
+        list_of_words[word] = list_of_words.get(word, 0) + 1
+    print(len(list_of_words))
+    result = []
+    for item in list_of_words.values():
+        print(item, end=' ')
+
+    return 0
+
+
 def main():
     # collections_counter()
     # default_dict_tutorial()
-    collections_namedtuple()
+    # collections_namedtuple()
+    # collections_ordered_dict()
+    word_ordered_dict()
 
 
 if __name__ == '__main__':
