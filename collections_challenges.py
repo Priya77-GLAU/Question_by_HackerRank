@@ -37,9 +37,49 @@ Print the average marks of the list corrected to 2 decimal places.
 # TODO 4: "Collections.OrderedDict()"
 
 # TODO 5: "Word Order"
+You are given N words. Some words may repeat. For each word, output its number of occurrences. The output order should
+correspond with the input order of appearance of the word. See the sample input/output for clarification.
+Note: Each input line ends with a "\n" character.
+Constraints:
+1 <= N <= 1**5
+The sum of the lengths of all the words do not exceed 10**6
+All the words are composed of lowercase English letters only.
+Input Format
+The first line contains the integer, N.
+The next N lines each contain a word.
+Output Format
+Output 2 lines.
+On the first line, output the number of distinct words from the input.
+On the second line, output the number of occurrences for each distinct word according to their appearance in the input.
+There are 3 distinct words. Here, "bcdef" appears twice in the input at the first and last positions. The other words
+appear once each. The order of the first appearances are "bcdef", "abcdefg" and "bcde" which corresponds to the output.
 
+# TODO 6:
+"Collections.deque()"
+Perform append, pop, popleft and appendleft methods on an empty deque .
+Input Format:
+The first line contains an integer N, the number of operations.
+The next N lines contains the space separated names of methods and their values.
+Constraints: 0 < N <=100
+Output Format: Print the space separated elements of deque d.
 
+TODO 7:
+"Piling Up"
+There is a horizontal row of N cubes. The length of each cube is given. You need to create a new vertical pile of cubes. The new pile should follow these directions: if cube_i is on top of cube_j then side_length_j >= side_length_i .
 
+When stacking the cubes, you can only pick up either the leftmost or the rightmost cube each time. Print "Yes" if it is possible to stack the cubes. Otherwise, print "No". Do not print the quotation marks.
+
+Input Format
+
+The first line contains a single integer T, the number of test cases.
+For each test case, there are 2 lines.
+The first line of each test case contains N, the number of cubes.
+The second line contains N space separated integers, denoting the sideLengths of each cube in that order.
+Constraints: 1<= T <= 5
+1 <= N <= 10**5
+1 <= sideLengths  < 2**31
+Output Format:
+For each test case, output a single line containing either "Yes" or "No" without the quotes.
 
 '''
 
@@ -47,7 +87,7 @@ from collections import Counter
 from collections import defaultdict
 from collections import namedtuple
 from collections import OrderedDict
-import re
+from collections import deque
 
 
 # TODO 1: "collections.Counter()"
@@ -167,6 +207,222 @@ def word_ordered_dict():
     result = []
     for item in list_of_words.values():
         print(item, end=' ')
+    return 0
+
+
+# TODO 6: "Collections.deque()"
+def get_command():
+    digits = 0
+    command_str = ''
+    input_list = input().lstrip().rstrip().split(' ')
+    command_str = input_list[0]
+    if len(input_list) == 2:
+        digits = int(input_list[1])
+    return command_str, digits
+
+
+def collections_deque():
+    num_of_command = int(input())
+    d = deque()
+    for _ in range(num_of_command):
+        new_command, digit = get_command()
+        if new_command == 'append':
+            d.append(digit)
+        elif new_command == 'appendleft':
+            d.appendleft(digit)
+        elif new_command == 'pop':
+            # print('command = {0}({1})'.format(new_command, digit))
+            d.pop()
+        elif new_command == 'popleft':
+            d.popleft()
+    while d:
+        print(d.popleft(), end=' ')
+    return 0
+
+
+# TODO 7: "Piling Up"
+def split_cubes(row_of_cubes):
+    side_left = []
+    side_rigft = []
+    if len(row_of_cubes) % 2 == 1:
+        side_left.append(row_of_cubes.pop(0))
+    else:
+        pass
+    while len(row_of_cubes):
+        side_rigft.append(row_of_cubes.pop(0))
+        side_left.append(row_of_cubes.pop(0))
+    return side_left, side_rigft
+
+
+def is_build_pile_from_2sides(side_left, side_right):
+    result = True
+    while len(side_left) + len(side_right) > 0:
+        pass
+    return result
+
+
+def is_build_pile(list_of_cubes):
+    result = True
+    pile_of_cube = []
+    end_item = None
+    for i in range(0, len(list_of_cubes) - 1, 2):
+        if len(list_of_cubes[i]) == 1:
+            print(end_item)
+            print(list_of_cubes[i])
+            if end_item is None:
+                return True
+            else:
+                # end_item = pile_of_cube.pop()
+                if list_of_cubes[i] > end_item:
+                    return False
+                else:
+                    # pile_of_cube.append(end_item)
+                    # pile_of_cube.append(list_of_cubes[i])
+                    return True
+
+        elif len(list_of_cubes[i]) == 2:
+            if max_int(list_of_cubes[i], list_of_cubes[i + 1]) > end_item:
+                return False
+            else:
+                return True
+        else:
+            end_item = list_of_cubes[i + 2]
+            if end_item > max_int(list_of_cubes[i], list_of_cubes[i + 1]):
+                return False
+            else:
+                if list_of_cubes[i] > list_of_cubes[i + 1]:
+                    end_item = list_of_cubes[i]
+                else:
+                    end_item = list_of_cubes[i + 1]
+            continue
+    return result
+    # elif list_of_cubes[i] > list_of_cubes[i+1]:
+    #     pile_of_cube.append(end_item)
+    #     pile_of_cube.append(list_of_cubes[i+1])
+    #     pile_of_cube.append(list_of_cubes[i])
+    #     return True
+    # else:
+    #     pile_of_cube.append(end_item)
+    #     pile_of_cube.append(list_of_cubes[i])
+    #     pile_of_cube.append(list_of_cubes[i+1])
+    #     return True
+
+    # else:
+    #     if list_of_cubes[i+2] > max_int(list_of_cubes[i], list_of_cubes[i+1]):
+    #         return False
+    #     else:
+    #         if list_of_cubes[i] > list_of_cubes[i+1]:
+    #             pile_of_cube.append(list_of_cubes[i+1])
+    #             pile_of_cube.append(list_of_cubes[i])
+    #         else:
+    #             pile_of_cube.append(list_of_cubes[i])
+    #             pile_of_cube.append(list_of_cubes[i+1])
+
+    # while len(list_of_cubes):
+    #     i = list_of_cubes.pop(0)
+    #     j = list_of_cubes.pop(0)
+
+
+def max_int(int_1, int_2):
+    if int_1 > int_2:
+        return int_1
+    else:
+        return int_2
+
+
+def is_build_pile_by_deque(list_of_cubes):
+    result = True
+    end_item = None
+    left_item = None
+    right_item = None
+    # print('len(list_of_cubes) ->', len(list_of_cubes))
+    while len(list_of_cubes) > 0:
+        # print(list_of_cubes, 'is size ', len(list_of_cubes))
+        # print('list_of_cubes is size ', len(list_of_cubes))
+        # print('end_item ->', end_item)
+        if len(list_of_cubes) == 1:
+            left_item = list_of_cubes.popleft()
+            # print('left_item ->', left_item)
+            if left_item > end_item:
+                print('last item > end_item')
+                return False
+            else:
+                return True
+        elif len(list_of_cubes) == 2:
+            if end_item is None:
+                return True
+            else:
+                left_item = list_of_cubes.popleft()
+                right_item = list_of_cubes.pop()
+                if left_item > end_item or right_item > end_item:
+                    if left_item > end_item:
+                        print('left_item > end_item', left_item, ' >', end_item)
+                        print()
+                    else:
+                        print('right_item > end_item', right_item, ' >', end_item)
+                    return False
+                else:
+                    return True
+        else:
+            left_item = list_of_cubes.popleft()
+            right_item = list_of_cubes.pop()
+            if left_item < right_item:
+                end_item = left_item
+            else:
+                end_item = right_item
+            continue
+    return result
+
+
+def is_build_pile_by_deque_v2(list_of_cubes):
+    result = True
+    end_item = None
+    left_item = None
+    right_item = None
+    while len(list_of_cubes) > 0:
+        if len(list_of_cubes) == 1:
+            # print('list_of_cubes is', len(list_of_cubes))
+            left_item = list_of_cubes.popleft()
+            if left_item > end_item:
+                # print('last item > end_item')
+                return False
+            else:
+                return True
+        else:
+            left_item = list_of_cubes.popleft()
+            right_item = list_of_cubes.pop()
+            if left_item > right_item:
+                new_item = left_item
+                list_of_cubes.append(right_item)
+            else:
+                new_item = right_item
+                list_of_cubes.appendleft(left_item)
+            # print('new_item =', new_item, 'end_item =', end_item)
+            if end_item is None:
+                end_item = new_item
+                continue
+            elif new_item > end_item:
+                # print('new_item > end_item ...', new_item, '>', end_item)
+                return False
+            else:
+                continue
+    return True
+
+
+def piling_up():
+    number_of_tests = int(input().lstrip().rstrip())
+    for _ in range(number_of_tests):
+        num_of_cubes = input().lstrip().rstrip()
+        number_of_cubes = int(num_of_cubes)
+
+        row_of_cubes = deque([int(x) for x in input().split(' ') if x], number_of_cubes)
+        len_of_cubes = len(row_of_cubes)
+        if is_build_pile_by_deque_v2(row_of_cubes):
+            print(len_of_cubes, ' -> Yes')
+            # print ('Yes')
+        else:
+            # print ('No')
+            print(len_of_cubes, ' -> No')
 
     return 0
 
@@ -176,7 +432,9 @@ def main():
     # default_dict_tutorial()
     # collections_namedtuple()
     # collections_ordered_dict()
-    word_ordered_dict()
+    # word_ordered_dict()
+    # collections_deque()
+    piling_up()
 
 
 if __name__ == '__main__':
