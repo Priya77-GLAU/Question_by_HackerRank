@@ -66,11 +66,8 @@ Output Format: Print the space separated elements of deque d.
 TODO 7:
 "Piling Up"
 There is a horizontal row of N cubes. The length of each cube is given. You need to create a new vertical pile of cubes. The new pile should follow these directions: if cube_i is on top of cube_j then side_length_j >= side_length_i .
-
 When stacking the cubes, you can only pick up either the leftmost or the rightmost cube each time. Print "Yes" if it is possible to stack the cubes. Otherwise, print "No". Do not print the quotation marks.
-
 Input Format
-
 The first line contains a single integer T, the number of test cases.
 For each test case, there are 2 lines.
 The first line of each test case contains N, the number of cubes.
@@ -81,6 +78,18 @@ Constraints: 1<= T <= 5
 Output Format:
 For each test case, output a single line containing either "Yes" or "No" without the quotes.
 
+TODO 8:
+"Most Common"
+You are given a string S.
+The string contains only lowercase English alphabet characters.
+Your task is to find the top three most common characters in the string S.
+Input Format: A single line of input containing the string S.
+Constraints: 3 < len(s) <= 10**4
+Output Format:
+Print the three most common characters along with their occurrence count each on a separate line.
+Sort output in descending order of occurrence count.
+If the occurrence count is the same, sort the characters in ascending order.
+
 '''
 
 from collections import Counter
@@ -88,6 +97,7 @@ from collections import defaultdict
 from collections import namedtuple
 from collections import OrderedDict
 from collections import deque
+import re
 
 
 # TODO 1: "collections.Counter()"
@@ -241,26 +251,6 @@ def collections_deque():
 
 
 # TODO 7: "Piling Up"
-def split_cubes(row_of_cubes):
-    side_left = []
-    side_rigft = []
-    if len(row_of_cubes) % 2 == 1:
-        side_left.append(row_of_cubes.pop(0))
-    else:
-        pass
-    while len(row_of_cubes):
-        side_rigft.append(row_of_cubes.pop(0))
-        side_left.append(row_of_cubes.pop(0))
-    return side_left, side_rigft
-
-
-def is_build_pile_from_2sides(side_left, side_right):
-    result = True
-    while len(side_left) + len(side_right) > 0:
-        pass
-    return result
-
-
 def is_build_pile(list_of_cubes):
     result = True
     pile_of_cube = []
@@ -296,31 +286,6 @@ def is_build_pile(list_of_cubes):
                     end_item = list_of_cubes[i + 1]
             continue
     return result
-    # elif list_of_cubes[i] > list_of_cubes[i+1]:
-    #     pile_of_cube.append(end_item)
-    #     pile_of_cube.append(list_of_cubes[i+1])
-    #     pile_of_cube.append(list_of_cubes[i])
-    #     return True
-    # else:
-    #     pile_of_cube.append(end_item)
-    #     pile_of_cube.append(list_of_cubes[i])
-    #     pile_of_cube.append(list_of_cubes[i+1])
-    #     return True
-
-    # else:
-    #     if list_of_cubes[i+2] > max_int(list_of_cubes[i], list_of_cubes[i+1]):
-    #         return False
-    #     else:
-    #         if list_of_cubes[i] > list_of_cubes[i+1]:
-    #             pile_of_cube.append(list_of_cubes[i+1])
-    #             pile_of_cube.append(list_of_cubes[i])
-    #         else:
-    #             pile_of_cube.append(list_of_cubes[i])
-    #             pile_of_cube.append(list_of_cubes[i+1])
-
-    # while len(list_of_cubes):
-    #     i = list_of_cubes.pop(0)
-    #     j = list_of_cubes.pop(0)
 
 
 def max_int(int_1, int_2):
@@ -331,50 +296,6 @@ def max_int(int_1, int_2):
 
 
 def is_build_pile_by_deque(list_of_cubes):
-    result = True
-    end_item = None
-    left_item = None
-    right_item = None
-    # print('len(list_of_cubes) ->', len(list_of_cubes))
-    while len(list_of_cubes) > 0:
-        # print(list_of_cubes, 'is size ', len(list_of_cubes))
-        # print('list_of_cubes is size ', len(list_of_cubes))
-        # print('end_item ->', end_item)
-        if len(list_of_cubes) == 1:
-            left_item = list_of_cubes.popleft()
-            # print('left_item ->', left_item)
-            if left_item > end_item:
-                print('last item > end_item')
-                return False
-            else:
-                return True
-        elif len(list_of_cubes) == 2:
-            if end_item is None:
-                return True
-            else:
-                left_item = list_of_cubes.popleft()
-                right_item = list_of_cubes.pop()
-                if left_item > end_item or right_item > end_item:
-                    if left_item > end_item:
-                        print('left_item > end_item', left_item, ' >', end_item)
-                        print()
-                    else:
-                        print('right_item > end_item', right_item, ' >', end_item)
-                    return False
-                else:
-                    return True
-        else:
-            left_item = list_of_cubes.popleft()
-            right_item = list_of_cubes.pop()
-            if left_item < right_item:
-                end_item = left_item
-            else:
-                end_item = right_item
-            continue
-    return result
-
-
-def is_build_pile_by_deque_v2(list_of_cubes):
     result = True
     end_item = None
     left_item = None
@@ -417,7 +338,7 @@ def piling_up():
 
         row_of_cubes = deque([int(x) for x in input().split(' ') if x], number_of_cubes)
         len_of_cubes = len(row_of_cubes)
-        if is_build_pile_by_deque_v2(row_of_cubes):
+        if is_build_pile_by_deque(row_of_cubes):
             print(len_of_cubes, ' -> Yes')
             # print ('Yes')
         else:
@@ -427,6 +348,46 @@ def piling_up():
     return 0
 
 
+# TODO 8: "Most Common"
+def sorted_list(list_of_chars):
+    if list_of_chars[2][1] > list_of_chars[0][1]:
+        list_of_chars.insert(0, list_of_chars[2])
+        list_of_chars.pop()
+    elif list_of_chars[2][1] == list_of_chars[0][1] and list_of_chars[2][0] < list_of_chars[0][0]:
+        list_of_chars.insert(0, list_of_chars[2])
+        list_of_chars.pop()
+    elif list_of_chars[2][1] > list_of_chars[1][1]:
+        list_of_chars.insert(1, list_of_chars[2])
+        list_of_chars.pop()
+    elif list_of_chars[2][1] == list_of_chars[1][1] and list_of_chars[2][0] < list_of_chars[1][0]:
+        list_of_chars.insert(1, list_of_chars[2])
+        list_of_chars.pop()
+    return list_of_chars
+
+
+def most_common():
+    input_string = input().lstrip().rstrip()
+    # input_string = 'aabbbccde'
+    list_of_chars = [['x', -1], ['y', -1], ['z', -1]]
+    input_list = [x for x in input_string]
+    input_set = set(input_list)
+    # print(input_list)
+    for ch in input_set:
+        count = input_list.count(ch)
+        if count > list_of_chars[2][1]:
+            list_of_chars.pop()
+            list_of_chars.append([ch, count])
+            list_of_chars = sorted_list(list_of_chars)
+        elif count == list_of_chars[2][1] and ch < list_of_chars[2][0]:
+            list_of_chars.pop()
+            list_of_chars.append([ch, count])
+            list_of_chars = sorted_list(list_of_chars)
+        else:
+            continue
+    # print(list_of_chars)
+    for item in list_of_chars:
+        print('{} {}'.format(item[0], item[1]))
+
 def main():
     # collections_counter()
     # default_dict_tutorial()
@@ -434,7 +395,8 @@ def main():
     # collections_ordered_dict()
     # word_ordered_dict()
     # collections_deque()
-    piling_up()
+    # piling_up()
+    most_common()
 
 
 if __name__ == '__main__':
