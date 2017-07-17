@@ -14,7 +14,22 @@ Constraints: Each line is a non-empty string.
 Output Format:
 Output a list containing the valid email addresses in lexicographical order. If the list is empty, just output an empty list, [].
 
+# TODO 2: "Reduce Function"
+Given a list of rational numbers,find their product.
+Input Format:
+First line contains N, the number of rational numbers.
+The i_th of next N lines contain two integers each, the numerator(N_i ) and denominator( D_i ) of the  rational number in the list.
+Constraints: 1 <= N <= 100
+1 <= N_i,D_i <= 10**9
+Output Format
+Print only one line containing the numerator and denominator of the product of the numbers in the list in its simplest
+form, i.e. numerator and denominator have no common divisor other than 1.
+
+
 '''
+
+from fractions import Fraction
+from functools import reduce
 
 
 # TODO 1: "Validating Email Addresses With a Filter"
@@ -58,6 +73,17 @@ def fun(s):
 
 def filter_mail(emails):
     return list(filter(fun, emails))
+
+
+# TODO 2: "Reduce Function"
+def product(fracs):
+    t = reduce(lambda x, y: x * y, fracs)  # complete this line with a reduce statement, [1 2], [3 4], [10 6]
+    # a = Fraction(*[int(x) for x in input().lstrip().rstrip().split()])
+    # b = Fraction(*[int(x) for x in input().lstrip().rstrip().split()])
+    # c = a*b
+    # print(c.numerator, c.denominator)
+
+    return t.numerator, t.denominator
 
 
 def main():
