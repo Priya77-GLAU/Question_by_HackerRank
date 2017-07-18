@@ -25,11 +25,26 @@ Output Format
 Print only one line containing the numerator and denominator of the product of the numbers in the list in its simplest
 form, i.e. numerator and denominator have no common divisor other than 1.
 
+# TODO 3: "Matrix Script"
+Neo has a complex matrix script. The matrix script is a N x M grid of strings. It consists of alphanumeric characters, spaces and symbols (!,@,#,$,%,&).
+To decode the script, Neo needs to read each column and select only the alphanumeric characters and connect them. Neo reads the column from top to bottom and starts reading from the leftmost column.
+If there are symbols or spaces between two alphanumeric characters of the decoded script, then Neo replaces them with a single space '' for better readability.
+Neo feels that there is no need to use 'if' conditions for decoding.
+Alphanumeric characters consist of: [A-Z, a-z, and 0-9].
+Input Format
+The first line contains space-separated integers N (rows) and M (columns) respectively.
+The next N lines contain the row elements of the matrix script.
+Constraints: 0 < N,M < 100
+Note: A 0 score will be awarded for using 'if' conditions in your code.
+Output Format
+Print the decoded matrix script.
 
 '''
 
+
 from fractions import Fraction
 from functools import reduce
+import re
 
 
 # TODO 1: "Validating Email Addresses With a Filter"
@@ -82,12 +97,75 @@ def product(fracs):
     # b = Fraction(*[int(x) for x in input().lstrip().rstrip().split()])
     # c = a*b
     # print(c.numerator, c.denominator)
-
     return t.numerator, t.denominator
 
 
-def main():
+# TODO 3: "Matrix Script"
+def list_to_row_column_and_reverse(source_list, row, column):
+    new_matrix = []
+    # for i in (range(0, column)):
+    #     new_matrix.append(source_list[i::column])
+    new_matrix = [source_list[x::column] for x in [i for i in range(0, column)]]
+    return new_matrix
 
+
+def matrix_to_string(matrix):
+    # new_string = ''.join([''.join(x) for x in matrix])
+    new_list = [''.join(x) for x in matrix]
+    new_string = ''.join(new_list)
+    return new_string
+
+
+def matrix_script():
+    matrix = []
+    result_string = ''
+    number_of_row, number_of_column = list(map(int, input().split()))
+    # print('number_of_column =', number_of_column, ',', 'number_of_row =', number_of_row)
+    for i in range(number_of_row):
+        row = [x for x in input()]
+        for v in row[:number_of_column]:
+            matrix.append(v)
+    # matrix = list_to_row_column_and_reverse(matrix, number_of_row, number_of_column)
+    matrix = [matrix[x::number_of_column] for x in [i for i in range(0, number_of_column)]]
+    # unfiltered_string = matrix_to_string(matrix)
+    new_list = [''.join(x) for x in matrix]
+    unfiltered_string = ''.join(new_list)
+    alnum_list = list(filter(lambda x: x.isalnum(), [x for x in unfiltered_string]))
+    try:
+        first_alnum = alnum_list[0]
+    except IndexError:
+        result_string = unfiltered_string
+    else:
+        last_alnum_index = unfiltered_string.rfind(alnum_list.pop())
+        first_alnum_index = unfiltered_string.find(first_alnum)
+        template_i = ['$', '#', '%', '!', '@', '&', '   ', '  ']  # !,@,#,$,%,&
+        template_for_reduce = list(zip(template_i, [' '] * len(template_i)))
+        result_string = unfiltered_string[first_alnum_index:last_alnum_index + 1:]
+        result_string = reduce(lambda x, y: x.replace(*y), template_for_reduce, result_string)
+        result_string = unfiltered_string[:first_alnum_index] + result_string + unfiltered_string[
+                                                                                last_alnum_index + 1::]
+    finally:
+        print(result_string)
+
+
+        # result_string_part1 = reduce(lambda x,y: x.replace(*y), template_for_reduce, unfiltered_string[:last_alnum+1:])
+        # result_string_part2 = reduce(lambda x,y: x.replace(*y), ['   ', ' '], unfiltered_string[last_alnum+1:])
+        # result_string = result_string_part1 + unfiltered_string[last_alnum+1::]
+
+
+        # s = str(reduce(lambda x,y: x.replace(*y), template_for_reduce, result_string))
+        # print(s)
+
+        # result_string.replace('$', ' ')
+        # result_string.replace('#', ' ')
+        # result_string.replace('%', ' ')
+        # result_string.replace('   ', ' ')
+        # result_string.replace('  ', ' ')
+        # print(result_string)
+
+
+def main():
+    matrix_script()
 
 if __name__ == '__main__':
     main()
