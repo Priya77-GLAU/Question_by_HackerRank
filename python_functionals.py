@@ -148,24 +148,30 @@ def matrix_script():
         print(result_string)
 
 
-        # result_string_part1 = reduce(lambda x,y: x.replace(*y), template_for_reduce, unfiltered_string[:last_alnum+1:])
-        # result_string_part2 = reduce(lambda x,y: x.replace(*y), ['   ', ' '], unfiltered_string[last_alnum+1:])
-        # result_string = result_string_part1 + unfiltered_string[last_alnum+1::]
-
-
-        # s = str(reduce(lambda x,y: x.replace(*y), template_for_reduce, result_string))
-        # print(s)
-
-        # result_string.replace('$', ' ')
-        # result_string.replace('#', ' ')
-        # result_string.replace('%', ' ')
-        # result_string.replace('   ', ' ')
-        # result_string.replace('  ', ' ')
-        # print(result_string)
+def fibonacci(n):
+    # return a list of fibonacci numbers
+    new_list = []
+    if n == 0:
+        return new_list
+    new_list.append(0)
+    if n == 1:
+        return new_list
+    new_list.append(1)
+    if n == 2:
+        return new_list
+    for _ in range(n - 2):
+        k1 = new_list.pop()
+        k2 = new_list.pop()
+        new_list.append(k2)
+        new_list.append(k1)
+        new_list.append(k1 + k2)
+    return new_list
 
 
 def main():
-    matrix_script()
+    # matrix_script()
+    cube = list(map(lambda x: x ** 3, fibonacci(int(input()))))  # complete the lambda function
+    print(cube)
 
 if __name__ == '__main__':
     main()
