@@ -1,17 +1,22 @@
 ''' Python question by HackerRank
-TODO 1: "XML 1 - Find the Score"
-you are given a valid XML document, and you have to print its score. The score is calculated by the sum of
-the score of each element. For any element, the score is equal to the number of attributes it has.
-Input Format:
-The first line contains N, the number of lines in the XML document.
-The next N lines follow containing the XML document.
-Output Format:
-Output a single line, the integer score of the given XML document.
-he feed and subtitle tag have one attribute each - lang.
-The title and updated tags have no attributes.
-The link tag has three attributes - rel, type and href.
-So, the total score is 1+1+3=5.
-There may be any level of nesting in the XML document. To learn about XML parsing, refer here.
+TODO 1: "Zipped!"
+The National University conducts an examination of N students in X subjects.
+Your task is to compute the average scores of each student.
+Average score = sum of score obtained in all subjects by a student / total number of subjects
+The format for the general mark sheet is:
+Student ID → ___1_____2_____3_____4_____5__
+Subject 1   |  89    90    78    93    80
+Subject 2   |  90    91    85    88    86
+Subject 3   |  91    92    83    89    90.5
+            |______________________________
+Average        90    91    82    90    85.5
+Input Format
+The first line contains N and X separated by a space.
+The next X lines contains the space separated marks obtained by students in a particular subject.
+Constraints:
+Output Format
+Print the averages of all students on separate lines.
+The averages must be correct up to 1 decimal place.
 
 '''
 
@@ -20,27 +25,18 @@ from functools import reduce
 import re
 import sys
 
-
-# import xml.etree.cElementTree as etree
-# from xml.etree import ElementTree as etree
-
-
-# TODO 1: "XML 1 - Find the Score"
-def xml_1_find_the_score():
-    number_of_attributes = 0
-    number_of_line = int(input().lstrip().rstrip())
-    for _ in range(number_of_line):
-        xml_line = input().lstrip().rstrip()
-        pattern = re.compile(r'\w+=\'\w+')
-        attribute_list = pattern.findall(xml_line)
-        # tree = etree.ElementTree(etree.fromstring(xml_line))
-        number_of_attributes += len(attribute_list)
-    print(number_of_attributes)
+# TODO 1: "Zipped!"
+stud, subjects = input().lstrip().rstrip().split(' ')
+input_list = []
+for _ in range(int(subjects)):
+    input_line = input().lstrip().rstrip().split(' ')
+    input_list.append([float(x) for x in input_line])
+for x in zip(*input_list):
+    print(round(sum(x) / len(x), 1))
 
 
 def main():
-    xml_1_find_the_score()
-
+    pass
 
 if __name__ == '__main__':
     main()
