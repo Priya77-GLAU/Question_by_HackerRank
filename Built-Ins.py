@@ -18,6 +18,7 @@ Output Format
 Print the averages of all students on separate lines.
 The averages must be correct up to 1 decimal place.
 
+
 '''
 
 from fractions import Fraction
