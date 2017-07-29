@@ -31,12 +31,16 @@ The next T line(s) contains a string N.
 Constraints: 0 < T < 10
 Output Format: Output True or False for each test case.
 
+TODO 2: "Re.split()"
+You are given a string S, containing , and/or . and 0-9 digits.
+Your task is to re.split() all of the , and . symbols.
+Input Format: A single line of input containing the string S.
+Output Format: Print the numbers obtained after splitting the string on separate lines.
+
+
 '''
 
-from fractions import Fraction
-from functools import reduce
 import re
-import sys
 
 
 # TODO 1: "Introduction to Regex Module"
@@ -81,8 +85,18 @@ def introduction_to_regex():
         check_number(input_line)
 
 
+# TODO 2: "Re.split()"
+s = input().lstrip().rstrip()
+pattern = re.compile(r'[,.]+')
+s_list = re.split(pattern, s)
+for str in s_list:
+    if len(str):
+        print(str)
+
+
 def main():
-    introduction_to_regex()
+    # introduction_to_regex()
+    pass
 
 
 if __name__ == '__main__':
