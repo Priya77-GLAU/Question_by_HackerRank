@@ -15,10 +15,10 @@ There may be any level of nesting in the XML document. To learn about XML parsin
 
 '''
 
-from fractions import Fraction
-from functools import reduce
-import re
-import sys
+
+# import lxml
+# import lxml.html as html
+# from lxml import etree as etree
 
 
 # import xml.etree.cElementTree as etree
@@ -26,20 +26,43 @@ import sys
 
 
 # TODO 1: "XML 1 - Find the Score"
-def xml_1_find_the_score():
+def xml_1_find_the_score(node):
     number_of_attributes = 0
-    number_of_line = int(input().lstrip().rstrip())
-    for _ in range(number_of_line):
-        xml_line = input().lstrip().rstrip()
-        pattern = re.compile(r'\w+=\'\w+')
-        attribute_list = pattern.findall(xml_line)
-        # tree = etree.ElementTree(etree.fromstring(xml_line))
-        number_of_attributes += len(attribute_list)
-    print(number_of_attributes)
+    attrib = node.attrib
+    number_of_attributes += len(attrib)
+    for appt in node.getchildren():
+        number_of_attributes += len(appt.attrib)
+        for e in appt.getchildren():
+            number_of_attributes += len(e.attrib)
+    return number_of_attributes
+
+    # xml_line = ''
+    # number_of_line = int(input().lstrip().rstrip())
+    # for _ in range(number_of_line):
+    #     xml_line += input() + '\n'
+    # print(xml_line)
+    # root = obj.fromstring(xml_line)
+    # attrib = root.attrib
+    # print(attrib)
+    # root = etree.fromstring(xml_line)
+    # root = obj.fromstring(xml_line)
+    # attrib = root.attrib
+    # number_of_attributes += len(attrib)
+    #
+    # for appt in root.getchildren():
+    #     number_of_attributes += len(appt.attrib)
+    #     # if len(appt.attrib):
+    #     #     print(len(appt.attrib))
+    #     for e in appt.getchildren():
+    #         print("%s => %s" % (e.attrib, e.text))
+    # print(number_of_attributes)
 
 
 def main():
-    xml_1_find_the_score()
+
+
+# xml_1_find_the_score()
+
 
 
 if __name__ == '__main__':
