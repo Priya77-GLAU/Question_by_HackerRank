@@ -37,6 +37,13 @@ Your task is to re.split() all of the , and . symbols.
 Input Format: A single line of input containing the string S.
 Output Format: Print the numbers obtained after splitting the string on separate lines.
 
+TODO 3: "Group(), Groups() & Groupdict()"
+
+You are given a string S.
+Your task is to find the first occurrence of an alphanumeric character in  S(read from left to right) that has consecutive repetitions.
+Input Format: A single line of input containing the string S.
+Constraints: 0 < len(S) < 100
+Output Format: Print the first occurrence of the repeating character. If there are no repeating characters, print -1.
 
 '''
 
@@ -86,12 +93,23 @@ def introduction_to_regex():
 
 
 # TODO 2: "Re.split()"
-s = input().lstrip().rstrip()
-pattern = re.compile(r'[,.]+')
-s_list = re.split(pattern, s)
-for str in s_list:
-    if len(str):
-        print(str)
+# s = input().lstrip().rstrip()
+# pattern = re.compile(r'[,.]+')
+# s_list = re.split(pattern, s)
+# for str in s_list:
+#     if len(str):
+#         print(str)
+
+
+# TODO 3: "Group(), Groups() & Groupdict()"
+source_s = input().lstrip().rstrip()
+pattern = re.compile(r'\w+')
+s_list = re.search('[\w]+', source_s)
+result = list(filter(lambda x: re.search(x, source_s), [s * 2 for s in source_s if s.isalnum()]))
+if len(result):
+    print(result[0][0])
+else:
+    print(-1)
 
 
 def main():
