@@ -56,6 +56,17 @@ Constraints: 0 < len(S) < 100
 Output Format: Print the matched substrings in their order of occurrence on separate lines.
 If no match is found, print -1.
 
+TODO 5: "Re.start() & Re.end()"
+You are given a string S.
+Your task is to find the indices of the start and end of string K in S.
+Input Format:
+The first line contains the string S.
+The second line contains the string K.
+Constraints: 0 < len(s) < 100, 0 < len(k) < len(s)
+Output Format:
+Print the tuple in this format: (start _index, end _index).
+If no match is found, print (-1, -1).
+
 '''
 
 import re
@@ -124,25 +135,51 @@ def introduction_to_regex():
 
 
 # TODO 4: "Re.findall() & Re.finditer()"
-source_s = input().lstrip().rstrip()
+# source_s = input().lstrip().rstrip()
+# not_result = True
+# pattern = re.compile(r'[qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM][AEIOUaeiou][AEIOUaeiou]+[qwrtypsdfghjklzxcvbnm'
+#                      r'QWRTYPSDFGHJKLZXCVBNM]')
+# match = re.search(pattern, source_s)
+# while match:
+#     # text_pos = match.span()
+#     # print('match.end =', match.end())
+#     find_str = re.findall(r'[AEIOUaeiou][AEIOUaeiou]+', source_s[match.start():match.end()])
+#     if len(find_str[0]):
+#         not_result = False
+#         print(find_str[0])
+#
+#     source_s = source_s[match.end() - 1:]
+#     # print(source_s[match.start():match.end()])
+#     match = re.search(pattern, source_s)
+#
+# if not_result:
+#     print(-1)
+
+
+# TODO 5: "Re.start() & Re.end()"
 not_result = True
-pattern = re.compile(r'[qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNM][AEIOUaeiou][AEIOUaeiou]+[qwrtypsdfghjklzxcvbnm'
-                     r'QWRTYPSDFGHJKLZXCVBNM]')
-match = re.search(pattern, source_s)
-while match:
-    # text_pos = match.span()
-    # print('match.end =', match.end())
-    find_str = re.findall(r'[AEIOUaeiou][AEIOUaeiou]+', source_s[match.start():match.end()])
-    if len(find_str[0]):
+new_start = 0
+source_s = input().lstrip().rstrip()
+source_k = input().lstrip().rstrip()
+if len(source_k) == 1:
+    match = re.search(source_k, source_s)
+    while match:
+        # print('match.end =', match.end())
         not_result = False
-        print(find_str[0])
+        print((match.start() + new_start, match.end() - 1 + new_start))
+        new_start += match.end() + 1
+        match = re.search(source_k, source_s[new_start:])
 
-    source_s = source_s[match.end() - 1:]
-    # print(source_s[match.start():match.end()])
-    match = re.search(pattern, source_s)
-
+else:
+    match = re.search(source_k, source_s)
+    while match:
+        # print('match.end =', match.end())
+        not_result = False
+        print((match.start() + new_start, match.end() - 1 + new_start))
+        new_start += match.end() - 1
+        match = re.search(source_k, source_s[new_start:])
 if not_result:
-    print(-1)
+    print((-1, -1))
 
 
 def main():
