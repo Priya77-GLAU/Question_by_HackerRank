@@ -67,6 +67,18 @@ Output Format:
 Print the tuple in this format: (start _index, end _index).
 If no match is found, print (-1, -1).
 
+TODO 6: "Regex Substitution"
+You are given a text of  lines. The text contains && and || symbols.
+Your task is to modify those symbols to the following:
+&& → and
+|| → or
+Both && and || should have a space " " on both sides.
+Input Format: The first line contains the integer, N.
+The next N lines each contain a line of the text.
+Constraints: 0 < N < 100
+Neither && nor || occur in the start or end of each line.
+Output Format: Output the modified text.
+
 '''
 
 import re
@@ -157,29 +169,56 @@ def introduction_to_regex():
 
 
 # TODO 5: "Re.start() & Re.end()"
-not_result = True
-new_start = 0
-source_s = input().lstrip().rstrip()
-source_k = input().lstrip().rstrip()
-if len(source_k) == 1:
-    match = re.search(source_k, source_s)
-    while match:
-        # print('match.end =', match.end())
-        not_result = False
-        print((match.start() + new_start, match.end() - 1 + new_start))
-        new_start += match.end() + 1
-        match = re.search(source_k, source_s[new_start:])
+# not_result = True
+# new_start = 0
+# source_s = input().lstrip().rstrip()
+# source_k = input().lstrip().rstrip()
+# if len(source_k) == 1:
+#     match = re.search(source_k, source_s)
+#     while match:
+#         # print('match.end =', match.end())
+#         not_result = False
+#         print((match.start() + new_start, match.end() - 1 + new_start))
+#         new_start += match.end() + 1
+#         match = re.search(source_k, source_s[new_start:])
+#
+# else:
+#     match = re.search(source_k, source_s)
+#     while match:
+#         # print('match.end =', match.end())
+#         not_result = False
+#         print((match.start() + new_start, match.end() - 1 + new_start))
+#         new_start += match.end() - 1
+#         match = re.search(source_k, source_s[new_start:])
+# if not_result:
+#     print((-1, -1))
 
-else:
-    match = re.search(source_k, source_s)
-    while match:
-        # print('match.end =', match.end())
-        not_result = False
-        print((match.start() + new_start, match.end() - 1 + new_start))
-        new_start += match.end() - 1
-        match = re.search(source_k, source_s[new_start:])
-if not_result:
-    print((-1, -1))
+# TODO 6: "Regex Substitution"
+number_of_str = int(input().lstrip().rstrip())
+for _ in range(number_of_str):
+    source_s = input()
+    pattern = re.compile(r'#')
+    if re.match(pattern, source_s):
+        print(source_s)
+    else:
+        # source_s = replace_2_and(source_s)
+        # source_s = replace_2_or(source_s)
+        re_sub = True
+        while re_sub:
+            # print(source_s)
+            new_source = re.sub(" && ", " and ", source_s)
+            if new_source == source_s:
+                re_sub = False
+            else:
+                source_s = new_source
+        re_sub = True
+        while re_sub:
+            new_source = re.sub(" \|\| ", " or ", source_s)
+            if new_source == source_s:
+                re_sub = False
+            else:
+                source_s = new_source
+        print(source_s)
 
 
 def main():
