@@ -79,6 +79,12 @@ Constraints: 0 < N < 100
 Neither && nor || occur in the start or end of each line.
 Output Format: Output the modified text.
 
+# TODO 7: "Validating Roman Numerals"
+You are given a string, and you have to validate whether it's a valid Roman numeral. If it is valid, print True. Otherwise, print False. Try to create a regular expression for a valid Roman numeral.
+Input Format: A single line of input containing a string of Roman characters.
+Output Format: Output a single line containing True or False according to the instructions above.
+Constraints: The number will be between 1 and 3999 (both included).
+
 '''
 
 import re
@@ -194,36 +200,78 @@ def introduction_to_regex():
 #     print((-1, -1))
 
 # TODO 6: "Regex Substitution"
-number_of_str = int(input().lstrip().rstrip())
-for _ in range(number_of_str):
-    source_s = input()
-    pattern = re.compile(r'#')
-    if re.match(pattern, source_s):
-        print(source_s)
-    else:
-        # source_s = replace_2_and(source_s)
-        # source_s = replace_2_or(source_s)
-        re_sub = True
-        while re_sub:
-            # print(source_s)
-            new_source = re.sub(" && ", " and ", source_s)
-            if new_source == source_s:
-                re_sub = False
-            else:
-                source_s = new_source
-        re_sub = True
-        while re_sub:
-            new_source = re.sub(" \|\| ", " or ", source_s)
-            if new_source == source_s:
-                re_sub = False
-            else:
-                source_s = new_source
-        print(source_s)
+# number_of_str = int(input().lstrip().rstrip())
+# for _ in range(number_of_str):
+#     source_s = input()
+#     pattern = re.compile(r'#')
+#     if re.match(pattern, source_s):
+#         print(source_s)
+#     else:
+#         # source_s = replace_2_and(source_s)
+#         # source_s = replace_2_or(source_s)
+#         re_sub = True
+#         while re_sub:
+#             # print(source_s)
+#             new_source = re.sub(" && ", " and ", source_s)
+#             if new_source == source_s:
+#                 re_sub = False
+#             else:
+#                 source_s = new_source
+#         re_sub = True
+#         while re_sub:
+#             new_source = re.sub(" \|\| ", " or ", source_s)
+#             if new_source == source_s:
+#                 re_sub = False
+#             else:
+#                 source_s = new_source
+#         print(source_s)
+
+
+
+# TODO 7: "Validating Roman Numerals"
+def valid_roman_numerals():
+    source_s = input().lstrip().rstrip()
+
+    pattern = re.compile(r'[CDLXIVƆM]+')
+    match = re.match(pattern, source_s)
+    if match.group(0) != source_s:
+        print('False')
+        return 1
+    pattern = re.compile(r'[XV]I{4}')
+    match = re.search(pattern, source_s)
+    # print(match)
+    # print(match.group(0))
+    if match:
+        print('False')
+        return 1
+    pattern = re.compile(r'X{4}')
+    match = re.search(pattern, source_s)
+    if match:
+        print('False')
+        return 1
+    pattern = re.compile(r'C{4}')
+    match = re.search(pattern, source_s)
+    if match:
+        print('False')
+        return 1
+    pattern = re.compile(r'M{4}')
+    match = re.search(pattern, source_s)
+    if match:
+        print('False')
+        return 1
+    pattern = re.compile(r'L{2}')
+    match = re.search(pattern, source_s)
+    if match:
+        print('False')
+        return 1
+
+    print('True')
+    return 0
 
 
 def main():
     # introduction_to_regex()
-    pass
+    valid_roman_numerals()
 
 
 if __name__ == '__main__':
