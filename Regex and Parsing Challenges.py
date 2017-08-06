@@ -100,8 +100,33 @@ N lines follow, each containing some string.
 Output Format:
 For every string listed, print "YES" if it is a valid mobile number and "NO" if it is not on separate lines.
 Do not print the quotes.
+
+# TODO 9: "Validating and Parsing Email Addresses"
+A valid email address meets the following criteria:
+
+It's composed of a username, domain name, and extension assembled in this format: username@domain.extension
+The username starts with an English alphabetical character, and any subsequent characters consist of one or more of the following: alphanumeric characters, -,., and _.
+The domain and extension contain only English alphabetical characters.
+The extension is 1, 2, or 3 characters in length.
+Given Т pairs of names and email addresses as input, print each name and email address pair having a valid email address on a new line.
+Hint: Try using Email.utils() to complete this challenge. For example, this code:
+import email.utils
+print email.utils.parseaddr('DOSHI <DOSHI@hackerrank.com>')
+print email.utils.formataddr(('DOSHI', 'DOSHI@hackerrank.com'))
+produces this output:
+('DOSHI', 'DOSHI@hackerrank.com')
+DOSHI <DOSHI@hackerrank.com>
+Input Format
+The first line contains a single integer, N, denoting the number of email address.
+Each line i of the N subsequent lines contains a name and an email address as two space-separated values following this format:
+name <user@email.com>
+Output Format:
+Print the space-separated name and email address pairs containing valid email addresses only. Each pair must be printed on a new line in the following format:
+name <user@email.com>
+
 '''
 
+import email.utils
 import re
 
 
@@ -306,10 +331,77 @@ def valid_phone_numbers():
     return 0
 
 
+# TODO 9: "Validating and Parsing Email Addresses"
+def valid_email_name(email_name):
+    # pattern = re.compile(r'[qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNMAEIOUaeiou]')
+    # if re.match(pattern, email_name):
+    if email_name[0] in 'qwrtypsdfghjklzxcvbnmQWRTYPSDFGHJKLZXCVBNMAEIOUaeiou':
+        match = ''.join(re.findall(r'[\W]', email_name, re.VERBOSE))
+        match = ''.join(re.findall(r'[^_]', match))
+        match = ''.join(re.findall(r'[^-]', match))
+        match = ''.join(re.findall(r'[^\.]', match))
+        if match:
+            return 1
+        else:
+            return 0
+    else:
+        # print('NO')
+        return 1
+
+
+def valid_email_domain(new_email_name, email_name):
+    match = re.search(new_email_name + '@', email_name)
+    new_email_domain = email_name[match.end():]
+    match = re.findall(r'[\.]', new_email_domain)
+    if len(match) != 1:
+        return 1
+    else:
+        new_email_domain_name, new_email_domain_extension = new_email_domain.split('.')
+        first_ch = new_email_domain_name[0]
+        if first_ch == '"' or first_ch == '<':
+            new_email_domain_name = new_email_domain_name[1:]
+        # print(new_email_domain_name)
+        if not new_email_domain_name.isalpha():
+            return 1
+        else:
+            last_ch = new_email_domain_extension[len(new_email_domain_extension) - 1]
+            if last_ch == '"' or last_ch == '>':
+                new_email_domain_extension = new_email_domain_extension[:-1:]
+            if len(new_email_domain_extension) < 1 or len(new_email_domain_extension) > 3:
+                return 1
+            if not new_email_domain_extension.isalpha():
+                return 1
+
+    return 0
+
+
+def valid_parsing_emails():
+    new_email_name = ''
+    new_email_domain = ''
+    number_of_str = int(input().lstrip().rstrip())
+    for _ in range(number_of_str):
+        source_s = input().lstrip().rstrip()
+        new_name, new_email = email.utils.parseaddr(source_s)
+        match = re.search(r'[@]', new_email)
+        if not match:
+            continue
+        new_email_name = new_email[:match.start()]
+        if valid_email_name(new_email_name) != 0:
+            # print(new_email_name)
+            # print('{} is not valid'.format(email.utils.formataddr((new_name, new_email))))
+            continue
+        else:
+            if valid_email_domain(new_email_name, source_s) != 0:
+                continue
+            else:
+                print(email.utils.formataddr((new_name, new_email)))
+
+
 def main():
     # introduction_to_regex()
     # valid_roman_numerals()
-    valid_phone_numbers()
+    # valid_phone_numbers()
+    valid_parsing_emails()
 
 
 if __name__ == '__main__':
