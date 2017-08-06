@@ -80,11 +80,26 @@ Neither && nor || occur in the start or end of each line.
 Output Format: Output the modified text.
 
 # TODO 7: "Validating Roman Numerals"
-You are given a string, and you have to validate whether it's a valid Roman numeral. If it is valid, print True. Otherwise, print False. Try to create a regular expression for a valid Roman numeral.
+You are given a string, and you have to validate whether it's a valid Roman numeral. If it is valid, print True.
+Otherwise, print False. Try to create a regular expression for a valid Roman numeral.
 Input Format: A single line of input containing a string of Roman characters.
 Output Format: Output a single line containing True or False according to the instructions above.
 Constraints: The number will be between 1 and 3999 (both included).
 
+# TODO 8: "Validating phone numbers"
+Let's dive into the interesting topic of regular expressions! You are given some input, and you are required to check
+whether they are valid mobile numbers.
+A valid mobile number is a ten digit number starting with a 7,8 or 9.
+Concept
+A valid mobile number is a ten digit number starting with a 7,8 or 9.
+Regular expressions are a key concept in any programming language. A quick explanation with Python examples is available
+here. You could also go through the link below to read more about regular expressions in Python.
+Input Format:
+The first line contains an integer N, the number of inputs.
+N lines follow, each containing some string.
+Output Format:
+For every string listed, print "YES" if it is a valid mobile number and "NO" if it is not on separate lines.
+Do not print the quotes.
 '''
 
 import re
@@ -227,7 +242,6 @@ def introduction_to_regex():
 #         print(source_s)
 
 
-
 # TODO 7: "Validating Roman Numerals"
 def valid_roman_numerals():
     source_s = input().lstrip().rstrip()
@@ -269,9 +283,33 @@ def valid_roman_numerals():
     return 0
 
 
+# TODO 8: "Validating phone numbers"
+def valid_phone_numbers():
+    number_of_str = int(input().lstrip().rstrip())
+    for _ in range(number_of_str):
+        source_s = input().lstrip().rstrip()
+        # print(source_s)
+        pattern = re.compile(r'[789]')
+        if re.match(pattern, source_s):
+            if len(source_s) != 10:
+                print('NO')
+                continue
+            pattern = re.compile(r'\D')
+            if re.search(pattern, source_s):
+                print('NO')
+                continue
+            print('YES')
+            continue
+        else:
+            print('NO')
+            continue
+    return 0
+
+
 def main():
     # introduction_to_regex()
-    valid_roman_numerals()
+    # valid_roman_numerals()
+    valid_phone_numbers()
 
 
 if __name__ == '__main__':
