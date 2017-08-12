@@ -124,6 +124,21 @@ Output Format:
 Print the space-separated name and email address pairs containing valid email addresses only. Each pair must be printed on a new line in the following format:
 name <user@email.com>
 
+# TODO 10: "Validating UID"
+ABCXYZ company has up to 100 employees.
+The company decides to create a unique identification number (UID) for each of its employees.
+The company has assigned you the task of validating all the randomly generated UIDs.
+A valid UID must follow the rules below:
+It must contain at least 2 uppercase English alphabet characters.
+It must contain at least 3 digits (0 - 9).
+It should only contain alphanumeric characters (a - z,A  - Z & 0 - 9).
+No character should repeat.
+There must be exactly 10 characters in a valid UID.
+Input Format: The first line contains an integer T, the number of test cases.
+The next T lines contains an employee's UID.
+Output Format:
+For each test case, print 'Valid' if the UID is valid. Otherwise, print 'Invalid', on separate lines. Do not print the quotation marks.
+
 '''
 
 import email.utils
@@ -397,11 +412,69 @@ def valid_parsing_emails():
                 print(email.utils.formataddr((new_name, new_email)))
 
 
+# TODO 10: "Validating UID"
+def check_3digits(uid):
+    match = re.findall(r'\d', uid)
+    # print(match, len(match))
+    if len(match) < 3:
+        return False
+    else:
+        return True
+
+
+def check_only_10_alphanumeric(uid):
+    if uid.lower().isalnum() and len(uid) == 10:
+        return True
+    else:
+        return False
+
+
+def no_repeat(uid):
+    for ch in uid:
+        match = re.findall(ch, uid)
+        # print(match, len(match))
+        if len(match) != 1:
+            return False
+        else:
+            continue
+    return True
+
+
+# def then_characters(uid):
+#     if len(uid) == 10:
+#         return True
+#     else:
+#         return False
+
+def check_2uppercase_english(uid):
+    count = 0
+    for ch in uid:
+        if ch in 'QWRTYPSDFGHJKLZXCVBNMAEIOU':
+            count += 1
+        else:
+            continue
+    if count < 2:
+        return False
+    else:
+        return True
+
+
+def valid_uid():
+    number_of_str = int(input().lstrip().rstrip())
+    for _ in range(number_of_str):
+        uid = input().lstrip().rstrip()
+        if check_only_10_alphanumeric(uid) and check_3digits(uid) and no_repeat(uid) and check_2uppercase_english(uid):
+            print('Valid')
+        else:
+            print('Invalid')
+
+
 def main():
     # introduction_to_regex()
     # valid_roman_numerals()
     # valid_phone_numbers()
-    valid_parsing_emails()
+    # valid_parsing_emails()
+    valid_uid()
 
 
 if __name__ == '__main__':
