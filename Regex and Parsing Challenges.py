@@ -139,6 +139,20 @@ The next T lines contains an employee's UID.
 Output Format:
 For each test case, print 'Valid' if the UID is valid. Otherwise, print 'Invalid', on separate lines. Do not print the quotation marks.
 
+# TODO 11: "Validating Credit Card Numbers"
+You and Fredrick are good friends. Yesterday, Fredrick received N credit cards from ABCD Bank. He wants to verify whether his credit card numbers are valid or not. You happen to be great at regex so he is asking for your help!
+A valid credit card from ABCD Bank has the following characteristics:
+► It must start with a 4, 5 or 6.
+► It must contain exactly 16 digits.
+► It must only consist of digits (0-9).
+► It may have digits in groups of 4, separated by one hyphen "-".
+► It must NOT use any other separator like ' ' , '_', etc.
+► It must NOT have 4 or more consecutive repeated digits.
+Input Format
+The first line of input contains an integer N.
+The next N lines contain credit card numbers.
+Output Format
+Print 'Valid' if the credit card number is valid. Otherwise, print 'Invalid'. Do not print the quotes.
 '''
 
 import email.utils
@@ -440,12 +454,6 @@ def no_repeat(uid):
     return True
 
 
-# def then_characters(uid):
-#     if len(uid) == 10:
-#         return True
-#     else:
-#         return False
-
 def check_2uppercase_english(uid):
     count = 0
     for ch in uid:
@@ -461,12 +469,84 @@ def check_2uppercase_english(uid):
 
 def valid_uid():
     number_of_str = int(input().lstrip().rstrip())
-    for _ in range(number_of_str):
-        uid = input().lstrip().rstrip()
-        if check_only_10_alphanumeric(uid) and check_3digits(uid) and no_repeat(uid) and check_2uppercase_english(uid):
-            print('Valid')
+    my_uid = Uid(number_of_str)
+    my_uid.check_valid_uid()
+    # for _ in range(number_of_str):
+    #     uid = input().lstrip().rstrip()
+    #     if check_only_10_alphanumeric(uid) and check_3digits(uid) and no_repeat(uid) and check_2uppercase_english(uid):
+    #         print('Valid')
+    #     else:
+    #         print('Invalid')
+
+
+class Uid():
+    uid = None
+
+    def __init__(self, inp):
+        self.uid = inp
+
+    def check_valid(self):
+        if check_only_10_alphanumeric(self.uid) and check_3digits(self.uid) and no_repeat(
+                self.uid) and check_2uppercase_english(self.uid):
+            return True
         else:
+            return False
+
+
+# TODO 11: "Validating Credit Card Numbers"
+class CreditCard():
+    number = ''
+
+    def __init__(self, inp):
+        self.number = inp
+        if not self.is_only_digits():
             print('Invalid')
+        elif not self.check_first_digits():
+            print('Invalid')
+        elif not self.four_or_less_repeat():
+            print('Invalid')
+        else:
+            print('Valid')
+
+    def check_first_digits(self):
+        if self.number[0] == '4' or self.number[0] == '5' or self.number[0] == '6':
+            return True
+        else:
+            return False
+
+    def four_or_less_repeat(self):
+        test_str = ['1111', '2222', '3333', '4444', '5555', '6666', '7777', '8888', '9999']
+        for test_dig in test_str:
+            match = re.findall(test_dig, self.number)
+            if len(match):
+                return False
+            else:
+                continue
+        return True
+
+    def is_only_digits(self):
+        match = ''.join(re.findall(r'[^\d]', self.number))
+        if self.number.isdigit() and len(self.number) == 16:
+            return True
+        if len(match) != 3:
+            return False
+        match = ''.join(re.findall(r'[^-]', match))
+        if len(match):
+            print('More ---')
+            return False
+        groups = self.number.split('-')
+        if len(groups) != 4:
+            return False
+        for i in groups:
+            if len(i) != 4:
+                return False
+        match = ''.join(re.findall(r'[\d]', self.number))
+        if match.isdigit() and len(match) == 16:
+            self.number = match
+            return True
+        else:
+            return False
+
 
 
 def main():
@@ -474,7 +554,22 @@ def main():
     # valid_roman_numerals()
     # valid_phone_numbers()
     # valid_parsing_emails()
-    valid_uid()
+
+    # number_of_str = int(input().lstrip().rstrip())
+    # for _ in range(number_of_str):
+    #     my_uid = Uid(input().lstrip().rstrip())
+    #     if my_uid.check_valid():
+    #         print('Valid')
+    #     else:
+    #         print('Invalid')
+
+    number_of_str = int(input().lstrip().rstrip())
+    for _ in range(number_of_str):
+        my_card = CreditCard(input().lstrip().rstrip())
+        # if my_card.check_valid():
+        #     print('Valid')
+        # else:
+        #     print('Invalid')
 
 
 if __name__ == '__main__':
