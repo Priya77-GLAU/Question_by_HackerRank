@@ -153,10 +153,34 @@ The first line of input contains an integer N.
 The next N lines contain credit card numbers.
 Output Format
 Print 'Valid' if the credit card number is valid. Otherwise, print 'Invalid'. Do not print the quotes.
+
+# TODO 12: "Validating Postal Codes"
+A postal code P must be a number in the range of (100000-999999).
+A postal code P must not contain more than one alternating repetitive digit pair.
+Alternating repetitive digits are digits which repeat immediately after the next digit. In other words, an alternating repetitive digit pair is formed by two equal digits that have just a single digit between them.
+For example:
+121426 # Here, 1 is an alternating repetitive digit.
+523563 # Here, NO digit is an alternating repetitive digit.
+552523 # Here, both 2 and 5 are alternating repetitive digits.
+Your task is to validate whether  is a valid postal code or not.
+Input Format
+One single line of input containing the string P.
+Output Format
+Print "True" if  is valid. Otherwise, print "False". Do not print the quotation marks.
+Sample Input 0
+110000
+Sample Output 0
+False
+Explanation 0
+1 1 0O0O : (0, 0) and (O, O) are two alternating digit pairs. Hence, it is an invalid postal code.
+Note:
+A score of 0 will be awarded for using 'if' conditions in your code.
+You have to pass all the testcases to get a positive score.
 '''
 
 import email.utils
 import re
+from functools import reduce
 
 
 # TODO 1: "Introduction to Regex Module"
@@ -548,6 +572,29 @@ class CreditCard():
             return False
 
 
+# TODO 12: "Validating Postal Codes"
+def check_post_code(post_code):
+    match = ''.join(re.findall(r'[^\d]', post_code))
+    is_digit = not bool(len(match))
+    try:
+        chek_size = not bool(len(list(filter(lambda x: x > 999999 or x < 100000, [int(post_code)]))))
+    except ValueError:
+        return False
+    # print(chek_size)
+    count_alternating_repetitive_digit = 0
+    left_list = [post_code[i] for i in range(0, 6, 2)]
+    right_list = [post_code[i] for i in range(1, 6, 2)]
+    left_str = ''.join(left_list)
+    right_str = ''.join(right_list)
+    left_list = list(map(lambda x: re.findall(x + x, left_str), [x for x in set(left_list)]))
+
+    count_alternating_repetitive_digit += reduce(lambda x, y: x + y, [len(x) for x in left_list])
+    # print(count_alternating_repetitive_digit)
+    right_list = list(map(lambda x: re.findall(x + x, right_str), [x for x in set(right_list)]))
+    count_alternating_repetitive_digit += reduce(lambda x, y: x + y, [len(x) for x in right_list])
+    check_alternating_repetitive_digit = not [x > 1 for x in [count_alternating_repetitive_digit]][0]
+    return chek_size and check_alternating_repetitive_digit and is_digit
+
 
 def main():
     # introduction_to_regex()
@@ -563,13 +610,12 @@ def main():
     #     else:
     #         print('Invalid')
 
-    number_of_str = int(input().lstrip().rstrip())
-    for _ in range(number_of_str):
-        my_card = CreditCard(input().lstrip().rstrip())
-        # if my_card.check_valid():
-        #     print('Valid')
-        # else:
-        #     print('Invalid')
+    # number_of_str = int(input().lstrip().rstrip())
+    # for _ in range(number_of_str):
+    #     my_card = CreditCard(input().lstrip().rstrip())
+
+    post_code_str = int(input().lstrip().rstrip())
+    print(check_post_code(post_code_str))
 
 
 if __name__ == '__main__':
