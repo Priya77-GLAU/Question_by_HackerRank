@@ -573,6 +573,7 @@ class CreditCard():
 
 
 # TODO 12: "Validating Postal Codes"
+# https://www.hackerrank.com/challenges/validating-postalcode
 def check_post_code(post_code):
     match = ''.join(re.findall(r'[^\d]', post_code))
     is_digit = not bool(len(match))
@@ -595,6 +596,41 @@ def check_post_code(post_code):
     check_alternating_repetitive_digit = not [x > 1 for x in [count_alternating_repetitive_digit]][0]
     return chek_size and check_alternating_repetitive_digit and is_digit
 
+class PostCode():
+    post_code_str = ''
+    post_code_int = 0
+
+    def __init__(self, inp_str):
+        self.post_code_str = inp_str
+        # self.post_code_int = int(inp_str)
+        print(self.is_digit()and self.not_more_or_less() and self.not_alternating_repetitive_digit())
+
+    def is_digit(self):
+        match = ''.join(re.findall(r'[^\d]', self.post_code_str))
+        is_digit = not bool(len(match))
+        return is_digit
+
+    def not_more_or_less(self):
+        try:
+            chek_size = bool(len(list(filter(lambda x: x > 999999 or x < 100000, [int(self.post_code_str)]))))
+            return not chek_size
+        except ValueError:
+            return True
+
+    def not_alternating_repetitive_digit(self):
+        count_alternating_repetitive_digit = 0
+        left_list = [self.post_code_str[i] for i in range(0, 6, 2)]
+        right_list = [self.post_code_str[i] for i in range(1, 6, 2)]
+        left_str = ''.join(left_list)
+        right_str = ''.join(right_list)
+        left_list = list(map(lambda x: re.findall(x + x, left_str), [x for x in set(left_list)]))
+
+        count_alternating_repetitive_digit += reduce(lambda x, y: x + y, [len(x) for x in left_list])
+        right_list = list(map(lambda x: re.findall(x + x, right_str), [x for x in set(right_list)]))
+        count_alternating_repetitive_digit += reduce(lambda x, y: x + y, [len(x) for x in right_list])
+        check_alternating_repetitive_digit = not [x > 1 for x in [count_alternating_repetitive_digit]][0]
+        return check_alternating_repetitive_digit
+
 
 def main():
     # introduction_to_regex()
@@ -614,8 +650,9 @@ def main():
     # for _ in range(number_of_str):
     #     my_card = CreditCard(input().lstrip().rstrip())
 
-    post_code_str = int(input().lstrip().rstrip())
-    print(check_post_code(post_code_str))
+    inp_str = input().lstrip().rstrip()
+    # print(check_post_code(post_code))
+    post_code = PostCode(inp_str)
 
 
 if __name__ == '__main__':
