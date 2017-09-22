@@ -3,9 +3,7 @@ TODO 1: "Exceptions"
 You have to pass all the testcases to get a positive score.
 '''
 
-import email.utils
 import re
-from functools import reduce
 
 
 # TODO 1: "Exceptions"
@@ -24,6 +22,21 @@ def exceptions_example():
             print("Error Code:",e)
 
 
+# TODO 2: "Incorrect Regex"
+def incorrect_regex():
+    number_of_tests = int(input().lstrip().rstrip())
+    test_str = 'QWRTYPSDFGHJKLZXCVBNMAEIOU11223344556677889900 QWRTYPSDFGHJKLZXCVBNMAEIOU11223344556677889900'
+    for _ in range(int(number_of_tests)):
+        ss = input().lstrip().rstrip()
+        try:
+            match = ''.join(re.findall(ss, test_str))
+        except Exception:
+            print('False')
+        else:
+            print('True')
+
+
 
 if __name__ == '__main__':
-    exceptions_example()
+    incorrect_regex()
+
