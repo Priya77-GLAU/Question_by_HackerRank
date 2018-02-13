@@ -52,8 +52,9 @@ for _ in range(int(input())):
         score = float(input())
         students.append([name, score])
 
-second_grade=find_second_val_in_list(students)
-lst=get_student_list_for_grade(students, second_grade)
+second_grade = find_second_val_in_list(students)
+lst = get_student_list_for_grade(students, second_grade)
+print(lst)
 lst.sort()
 for i in lst:
     print(i)
