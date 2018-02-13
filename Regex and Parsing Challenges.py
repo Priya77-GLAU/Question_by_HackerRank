@@ -539,7 +539,7 @@ class CreditCard():
             return False
 
     def four_or_less_repeat(self):
-        test_str = ['1111', '2222', '3333', '4444', '5555', '6666', '7777', '8888', '9999']
+        test_str = ['1111', '2222', '3333', '4444', '5555', '6666', '7777', '8888', '9999
         for test_dig in test_str:
             match = re.findall(test_dig, self.number)
             if len(match):
