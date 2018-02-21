@@ -1,7 +1,5 @@
 ''' Here I continue to solve the chellenges from the section Regex and Parsing
 TODO 13: "HTML Parser - Part 1"
-
-
 '''
 
 # import sys
@@ -22,6 +20,7 @@ class MyHTMLParser(HTMLParser):
         self.start_tag_list = []
         self.end_tag_list = []
         self.empty_tag_list = []
+        self.out_data = []
 
     def handle_starttag(self, tag, attrs):
         ''' Переопределяем метод HTMLParser (в базовом классе метод ничего не делает)
@@ -42,24 +41,26 @@ class MyHTMLParser(HTMLParser):
         # print(f"Found a start tag  :{tag}")
 
         # print("Found a start tag  :", tag)
-        print("Start :", tag)
-        self.start_tag_list.append(tag)
+        self.out_data.append(f"Start :{tag}")
+        # print("Start :", tag)
         if len(attrs):
             for attr in attrs:
                 # print(f'-> {attr[0]} > {attr[1]}')
-                print('->', attr[0], '>', attr[1])
+                self.out_data.append(f'-> {attr[0]} > {attr[1]}')
+                # print('->', attr[0], '>', attr[1])
 
     def handle_endtag(self, tag):
-        print("End   :", tag)
-        self.end_tag_list.append(tag)
+        # print("End   :", tag)
+        self.out_data.append(f"End   :{tag}")
 
     def handle_startendtag(self, tag, attrs):
-        print("Empty :", tag)
-        self.empty_tag_list.append(tag)
+        self.out_data.append(f"Empty :{tag}")
+        # print("Empty :", tag)
         if len(attrs):
             for attr in attrs:
                 # print(f'-> {attr[0]} > {attr[1]}')
-                print('->', attr[0], '>', attr[1])
+                self.out_data.append(f'-> {attr[0]} > {attr[1]}')
+                # print('->', attr[0], '>', attr[1])
 
 
 def main():
@@ -76,9 +77,8 @@ def main():
     # parser.feed("<html><head><title>HTML Parser - I</title></head>"
     #             + "<body><h1>HackerRank</h1><br /></body></html>")
     parser.feed(inp_str)
-    # print('start_tag_list = ', parser.start_tag_list)
-    # print('end_tag_list = ', parser.end_tag_list)
-    # print('empty_tag_list = ', parser.empty_tag_list)
+    for str in parser.out_data:
+        print(str)
 
 
 
