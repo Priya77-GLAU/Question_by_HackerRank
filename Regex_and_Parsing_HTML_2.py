@@ -5,13 +5,12 @@ TODO 14: "HTML Parser - Part 2"
 from html.parser import HTMLParser
 
 
-
 # TODO 13: "HTML Parser - Part 1"
-
 class MyHTMLParser(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
-        self.links = []  #  список найденных ссылок
+        #  список найденных ссылок
+        self.links = []
         self.start_tag_list = []
         self.end_tag_list = []
         self.empty_tag_list = []
