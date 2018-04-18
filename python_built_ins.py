@@ -3,6 +3,8 @@
 
 import sys
 from operator import attrgetter
+import re
+from functools import reduce
 
 
 # TODO 1 "Python Evaluation"
@@ -31,5 +33,33 @@ from operator import attrgetter
 # print_arr(sorted_arr)
 
 # TODO 3 "Any or All"
-numbers = input().strip().split(' ') if int(input().strip()) else None
-print(all(list(map(lambda x: int(x) > 0, numbers))) and any(list(map(lambda x: str(x) == str(x)[::-1], numbers))))
+# numbers = input().strip().split(' ') if int(input().strip()) else None
+# print(all(list(map(lambda x: int(x) > 0, numbers))) and any(list(map(lambda x: str(x) == str(x)[::-1], numbers))))
+
+# TODO 4 "ginortS"
+def separete_digits_1(str):
+    if str.isdigit() and int(str) % 2 == 1:
+        return True
+    return False
+
+
+def separete_digits_2(str):
+    if str.isdigit() and int(str) % 2 == 0:
+        return True
+    return False
+
+
+upp_chs = 'BCDFGHJKLMNPQRSTVWXZYAEIOU'
+lower_chs = 'bcdfghjklmnpqrstvwxzyaeiou'
+inp_str = input().strip()
+
+result_digit_part_1 = list(filter(lambda x: separete_digits_1(x), inp_str))
+result_digit_part_2 = list(filter(lambda x: separete_digits_2(x), inp_str))
+result_lower_part = list(filter(lambda x: x in 'bcdfghjklmnpqrstvwxzyaeiou', inp_str))
+result_upper_part = list(filter(lambda x: x in 'BCDFGHJKLMNPQRSTVWXZYAEIOU', inp_str))
+
+result_lower_part, result_upper_part, result_digit_part_1, result_digit_part_2 = list(
+    map(sorted, [result_lower_part, result_upper_part, result_digit_part_1, result_digit_part_2]))
+result_list = result_lower_part + result_upper_part + result_digit_part_1 + result_digit_part_2
+result_str = reduce(lambda x, y: x + y, result_list)
+print(result_str)
